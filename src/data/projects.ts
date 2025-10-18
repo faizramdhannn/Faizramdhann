@@ -1,0 +1,58 @@
+import type { Project } from '@/types/project';
+
+export const projectList: Project[] = [
+  {
+    id: 1,
+    name: 'Shopify Bulk Stock and Price Editor',
+    category: 'Web App',
+    description: 'A tool to edit Shopify inventory stock in bulk.',
+    technologies: ['Script', 'Spreadsheet'],
+    image: '/assets/profile.jpeg',
+    link: '',
+  },
+  {
+    id: 2,
+    name: 'Daily Stock Report',
+    category: 'Web App',
+    description: 'Generates daily stock reports automatically.',
+    technologies: ['Script', 'Spreadsheet'],
+    image: '/assets/profile.jpeg',
+    link: '',
+  },
+  {
+    id: 3,
+    name: 'Dashboard Report',
+    category: 'Data Analysis',
+    description: 'A dashboard summarizing and visualizing.',
+    technologies: ['Spreadsheet'],
+    image: '/assets/profile.jpeg',
+    link: '',
+  },
+  {
+    id: 4,
+    name: 'Webstore Dashboard',
+    category: 'Web Development',
+    description: 'A dashboard summarizing the main functions.',
+    technologies: ['HTML', 'CSS'],
+    image: '/assets/profile.jpeg',
+    link: '',
+  },
+  {
+    id: 5,
+    name: 'Admin Dashboard',
+    category: 'Web Development',
+    description: 'A dashboard showing all links accessible.',
+    technologies: ['HTML', 'CSS'],
+    image: '/assets/profile.jpeg',
+    link: '',
+  },
+  {
+    id: 6,
+    name: 'Developer Portfolio',
+    category: 'Web Development',
+    description: 'A personal portfolio website.',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    image: '/assets/profile.jpeg',
+    link: '',
+  },
+]
