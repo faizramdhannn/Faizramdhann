@@ -37,7 +37,7 @@ export default function Home() {
 
         <div className="flex flex-col gap-5 max-w-2xl text-center md:text-left">
           <h1 className="text-5xl font-bold leading-tight">
-            Hi, I'm <span className="text-[#00a67e]">Faiz Ramdhan</span>
+            Hi, I&apos;m <span className="text-[#00a67e]">Faiz Ramdhan</span>
           </h1>
           <h1 className="text-5xl font-bold -mt-4">Azmalia</h1>
           <h3 className="text-lg opacity-80 leading-relaxed">
