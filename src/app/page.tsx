@@ -49,7 +49,7 @@ export default function Home() {
 
       <section className="flex justify-center items-center gap-8 py-8 flex-wrap">
         {[
-          { href: 'https://github.com/faizramdhann', icon: 'github', alt: 'GitHub' },
+          { href: 'https://github.com/faizramdhannn', icon: 'github', alt: 'GitHub' },
           { href: 'https://www.linkedin.com/in/faiz-ramdhan-8b1a22389/', icon: 'linkedin', alt: 'LinkedIn' },
           { href: 'https://instagram.com/faizmalia', icon: 'instagram', alt: 'Instagram' },
           { href: 'mailto:faizramdhan17@gmail.com', icon: 'email', alt: 'Email' },
