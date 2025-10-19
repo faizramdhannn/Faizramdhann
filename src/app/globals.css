@@ -5,7 +5,7 @@
   --bg-dark-end: #000000;
   --bg-light-start: #f0f4f8;
   --bg-light-end: #ffffff;
-  --text-dark: #00172a;
+  --text-dark: #ffffff;
   --text-light: #ffffff;
 }
 
@@ -37,6 +37,28 @@ html.light body {
 
 html.light .project-card {
   background: #00172a;
+}
+
+.project-card h3,
+.project-card p {
+  color: var(--text-light) !important;
+  transition: color 0.3s ease;
+}
+
+html.light .project-card h3,
+html.light .project-card p {
+  color: var(--text-dark) !important;
+}
+
+.project-description,
+.project-text {
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+html.light .project-description,
+html.light .project-text {
+  color: #ffffff !important;
 }
 
 footer {
