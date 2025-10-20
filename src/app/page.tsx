@@ -1,26 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useTheme } from '@/components/ThemeProvider';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
-  const [isLight, setIsLight] = useState(false);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      setIsLight(document.documentElement.classList.contains('light'));
-    };
-    
-    checkTheme();
-    
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
-  }, []);
+  const { theme } = useTheme();
 
   const socialLinks = [
     { href: 'https://github.com/faizramdhannn', icon: 'github', alt: 'GitHub' },
@@ -33,13 +18,24 @@ export default function Home() {
     <>
       <section className="flex flex-col md:flex-row justify-center items-center px-5 py-12 gap-10 min-h-[calc(100vh-300px)]">
         <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-[10%] border-4 border-[#00a67e]/30 overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300">
-          <Image
-            src="/assets/profile.jpeg"
-            alt="Faiz Ramdhan Profile"
-            fill
-            className="object-cover"
-            priority
-          />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={theme}
+              initial={{ opacity: 0, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, filter: 'blur(10px)' }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              className="relative w-full h-full"
+            >
+              <Image
+                src={`/assets/profile-${theme === 'light' ? 'light' : 'dark'}.jpeg`}
+                alt="Faiz Ramdhan Profile"
+                fill
+                className="object-cover"
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <div className="flex flex-col gap-5 max-w-2xl text-center md:text-left">
@@ -49,10 +45,10 @@ export default function Home() {
           <h1 className="text-5xl font-bold -mt-4">
             Azmalia
           </h1>
-          <h3 className="text-lg opacity-80 leading-relaxed">
+          <p className="text-lg opacity-80 leading-relaxed">
             Welcome to my little corner of the web! I love crafting solutions and bringing ideas to life. 
             Browse through my projects and feel free to say hello!
-          </h3>
+          </p>
         </div>
       </section>
 
@@ -67,7 +63,7 @@ export default function Home() {
                        hover:bg-[#00a67e]/10 transition-all hover:scale-110 duration-300"
           >
             <Image
-              src={`/assets/${social.icon}-${isLight ? 'light' : 'dark'}.png`}
+              src={`/assets/${social.icon}-${theme === 'light' ? 'light' : 'dark'}.png`}
               alt={social.alt}
               width={30}
               height={30}

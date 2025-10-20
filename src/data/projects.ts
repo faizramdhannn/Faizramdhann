@@ -51,7 +51,7 @@ export const projectList: Project[] = [
     name: 'Developer Portfolio',
     category: 'Web Development',
     description: 'A personal portfolio website.',
-    technologies: ['HTML', 'CSS', 'JavaScript'],
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     image: '/assets/profile.jpeg',
     link: '',
   },

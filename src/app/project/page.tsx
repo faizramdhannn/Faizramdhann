@@ -31,15 +31,13 @@ export default function Project() {
 
   return (
     <>
-      <section>
-        <div className="flex flex-col items-center text-center gap-5 py-12 pb-12">
-          <h1 className="text-5xl font-bold">
-            My <span className="text-[#00a67e]">Projects</span>
-          </h1>
-          <h2 className="text-lg">
-            Berikut adalah beberapa project yang telah saya kerjakan
-          </h2>
-        </div>
+      <section className="text-center py-12">
+        <h1 className="text-5xl font-bold mb-4">
+          My <span className="text-[#00a67e]">Projects</span>
+        </h1>
+        <p className="text-lg opacity-80">
+          Berikut adalah beberapa project yang telah saya kerjakan
+        </p>
       </section>
 
       <section className="flex flex-col items-center gap-5 mb-10 px-5">
@@ -48,12 +46,11 @@ export default function Project() {
           placeholder="Search projects..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="px-4 py-2 border border-[#00a67e] rounded-lg bg-[#00a67e]/10 
-                     text-gray-900 dark:text-white w-full max-w-xs
-                     focus:outline-none focus:bg-[#00a67e]/20 
-                     focus:shadow-[0_0_10px_rgba(0,255,174,0.3)]
-                     placeholder:text-gray-500 dark:placeholder:text-gray-400 
-                     transition-all"
+          className="px-4 py-3 border border-[#00a67e]/30 rounded-lg 
+                     bg-transparent w-full max-w-md
+                     focus:outline-none focus:border-[#00a67e] 
+                     focus:shadow-[0_0_10px_rgba(0,166,126,0.3)]
+                     placeholder:text-gray-500 transition-all"
         />
 
         <div className="flex gap-2 flex-wrap justify-center">
@@ -74,14 +71,14 @@ export default function Project() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 md:px-32 pb-12 max-w-7xl mx-auto">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-5 md:px-32 pb-12 max-w-7xl mx-auto">
         {filteredProjects.length > 0 ? (
           filteredProjects.map(project => (
             <ProjectCard key={project.id} project={project} />
           ))
         ) : (
-          <div className="col-span-full text-center text-gray-600 dark:text-gray-400 py-16 text-lg">
-            No projects found.
+          <div className="col-span-full text-center opacity-70 py-16 text-lg">
+            No projects found matching your criteria.
           </div>
         )}
       </section>

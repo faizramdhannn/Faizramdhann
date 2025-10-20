@@ -1,71 +1,89 @@
 @import "tailwindcss";
 
 :root {
-  --bg-dark-start: #000814;
-  --bg-dark-end: #000000;
-  --bg-light-start: #f0f4f8;
-  --bg-light-end: #ffffff;
+  --bg-dark: #000000;
+  --bg-light: #ffffff;
+  --text-dark: #ffffff;
+  --text-light: #000000;
 }
 
 body {
   background: radial-gradient(
     circle at center,
-    var(--bg-dark-start) 0%,
-    var(--bg-dark-start) 10%,
-    var(--bg-dark-end) 100%
+    var(--bg-dark) 0%,
+    var(--bg-dark) 10%,
+    var(--bg-dark) 100%
   );
-  transition: background 0.5s ease;
-  color: #ffffff;
+  transition: background 0.3s ease;
+  color: var(--text-dark);
+  min-height: 100vh;
 }
 
 html.light body {
   background: radial-gradient(
     circle at center,
-    var(--bg-light-start) 0%,
+    #f0f4f8 0%,
     #e8eef3 10%,
-    var(--bg-light-end) 100%
+    var(--bg-light) 100%
   );
-  color: #000000;
+  color: var(--text-light);
 }
 
 html.light h1,
 html.light h2,
 html.light h3,
 html.light p,
-html.light span {
-  color: #000000 !important;
+html.light span,
+html.light label {
+  color: #000000;
 }
 
-html.light .text-gray-600 {
-  color: #4b5563 !important;
-}
-
-html.light .text-gray-700 {
-  color: #374151 !important;
-}
-
-html.light .text-white {
-  color: #000000 !important;
-}
-
-/* Keep teal color unchanged */
 html.light .text-\[\#00a67e\],
 .text-\[\#00a67e\] {
   color: #00a67e !important;
 }
 
 .project-card {
-  background: transparent;
-  transition: background 0.5s ease, box-shadow 0.5s ease;
+  background: rgba(0, 23, 42, 0.5);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
 html.light .project-card {
-  background: #00172a;
+  background: rgba(0, 23, 42, 0.95);
 }
 
 .project-card h3,
-.project-card p {
+.project-card p,
+.project-card span {
   color: #ffffff !important;
+}
+
+label {
+  color: #00a67e
+}
+
+html.light label{
+  color: #fefefe
+}
+
+header {
+  background: linear-gradient(
+    to top,
+    #000000,
+    rgba(0, 8, 20, 0.9),
+    transparent
+  );
+  transition: background 0.3s ease;
+}
+
+html.light header {
+  background: linear-gradient(
+    to top,
+    #ffffff,
+    rgba(255, 255, 255, 0.9),
+    transparent
+  );
 }
 
 footer {
@@ -75,7 +93,7 @@ footer {
     rgba(0, 8, 20, 0.9),
     transparent
   );
-  transition: background 0.5s ease;
+  transition: background 0.3s ease;
 }
 
 html.light footer {
@@ -87,8 +105,15 @@ html.light footer {
   );
 }
 
-@layer utilities {
-  .light {
-    color-scheme: light;
-  }
+html.light input {
+  color: #000000;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+html.light input::placeholder {
+  color: #6b7280;
+}
+
+* {
+  transition: color 0.2s ease;
 }
