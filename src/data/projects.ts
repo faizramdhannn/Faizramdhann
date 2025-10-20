@@ -23,7 +23,7 @@ export const projectList: Project[] = [
     id: 3,
     name: 'Dashboard Report',
     category: 'Data Analysis',
-    description: 'A dashboard summarizing and visualizing.',
+    description: 'A dashboard summarizing and visualizing data.',
     technologies: ['Spreadsheet'],
     image: '/assets/profile.jpeg',
     link: '',
@@ -41,7 +41,7 @@ export const projectList: Project[] = [
     id: 5,
     name: 'Admin Dashboard',
     category: 'Web Development',
-    description: 'A dashboard showing all links accessible.',
+    description: 'A dashboard showing all accessible links.',
     technologies: ['HTML', 'CSS'],
     image: '/assets/profile.jpeg',
     link: '',
@@ -55,4 +55,4 @@ export const projectList: Project[] = [
     image: '/assets/profile.jpeg',
     link: '',
   },
-]
+];

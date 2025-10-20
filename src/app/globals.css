@@ -5,29 +5,53 @@
   --bg-dark-end: #000000;
   --bg-light-start: #f0f4f8;
   --bg-light-end: #ffffff;
-  --text-dark: #ffffff;
-  --text-light: #ffffff;
 }
 
 body {
-  background: radial-gradient(circle at center, var(--bg-dark-start) 0%, var(--bg-dark-start) 10%, var(--bg-dark-end) 100%);
+  background: radial-gradient(
+    circle at center,
+    var(--bg-dark-start) 0%,
+    var(--bg-dark-start) 10%,
+    var(--bg-dark-end) 100%
+  );
   transition: background 0.5s ease;
+  color: #ffffff;
 }
 
-h1, h2, h3, p {
-  color: var(--text-light);
-  transition: color 0.3s ease;
+html.light body {
+  background: radial-gradient(
+    circle at center,
+    var(--bg-light-start) 0%,
+    #e8eef3 10%,
+    var(--bg-light-end) 100%
+  );
+  color: #000000;
 }
 
 html.light h1,
 html.light h2,
 html.light h3,
-html.light p {
-  color: var(--text-dark);
+html.light p,
+html.light span {
+  color: #000000 !important;
 }
 
-html.light body {
-  background: radial-gradient(circle at center, var(--bg-light-start) 0%, #e8eef3 10%, var(--bg-light-end) 100%);
+html.light .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+html.light .text-gray-700 {
+  color: #374151 !important;
+}
+
+html.light .text-white {
+  color: #000000 !important;
+}
+
+/* Keep teal color unchanged */
+html.light .text-\[\#00a67e\],
+.text-\[\#00a67e\] {
+  color: #00a67e !important;
 }
 
 .project-card {
@@ -41,37 +65,26 @@ html.light .project-card {
 
 .project-card h3,
 .project-card p {
-  color: var(--text-light) !important;
-  transition: color 0.3s ease;
-}
-
-html.light .project-card h3,
-html.light .project-card p {
-  color: var(--text-dark) !important;
-}
-
-.project-description,
-.project-text {
-  color: #ffffff !important;
-  transition: color 0.3s ease;
-}
-
-html.light .project-description,
-html.light .project-text {
   color: #ffffff !important;
 }
 
 footer {
-  background: linear-gradient(to top, #000000, rgba(0, 8, 20, 0.9), transparent);
+  background: linear-gradient(
+    to top,
+    #000000,
+    rgba(0, 8, 20, 0.9),
+    transparent
+  );
   transition: background 0.5s ease;
 }
 
 html.light footer {
-  background: linear-gradient(to top, #ffffff, rgba(232, 238, 243, 0.9), transparent);
-}
-
-footer p {
-  opacity: 0.7;
+  background: linear-gradient(
+    to top,
+    #ffffff,
+    rgba(232, 238, 243, 0.9),
+    transparent
+  );
 }
 
 @layer utilities {

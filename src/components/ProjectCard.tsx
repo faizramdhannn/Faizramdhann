@@ -27,13 +27,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     return () => observer.disconnect();
   }, []);
 
-  const textColor = isLight ? '#ffffffff' : '#ffffff';
-
   const CardContent = (
     <div
-      className="project-card relative border border-[#00a67e]/20 rounded-2xl p-5 transition-all duration-500 w-full h-[365px] hover:-translate-y-2 hover:border-[#00a67e] hover:shadow-[0_10px_30px_rgba(0,255,174,0.3)] overflow-hidden"
+      className="project-card relative border border-[#00a67e]/20 rounded-2xl p-5 
+                 transition-all duration-500 w-full h-[365px] 
+                 hover:-translate-y-2 hover:border-[#00a67e] 
+                 hover:shadow-[0_10px_30px_rgba(0,255,174,0.3)] overflow-hidden
+                 cursor-pointer"
     >
-      <div className="relative w-full h-[200px] rounded-t-lg overflow-hidden">
+      <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
         <Image
           src={project.image}
           alt={project.name}
@@ -46,19 +48,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <h3 className="text-[#00a67e] text-lg font-semibold text-center my-2">
           {project.name}
         </h3>
-        <p 
-          className="text-xs text-center transition-colors duration-300"
-          style={{ color: textColor }}
-        >
+        <p className="text-xs text-center text-white transition-colors duration-300">
           {project.description}
         </p>
       </div>
 
       <div className="mt-2 pt-2 border-t border-[#00a67e]/10">
-        <div 
-          className="text-xs mb-2 transition-colors duration-300"
-          style={{ color: textColor }}
-        >
+        <div className="text-xs mb-2 text-white transition-colors duration-300">
           <strong className="text-[#00a67e]">Category:</strong> {project.category}
         </div>
         <div className="flex flex-wrap gap-2">

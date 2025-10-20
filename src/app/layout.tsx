@@ -5,7 +5,7 @@ import PageTransition from '@/components/PageTransition';
 
 export const metadata: Metadata = {
   title: 'Faiz Ramdhan - Portfolio',
-  description: 'Personal portfolio website',
+  description: 'Personal portfolio website showcasing projects and skills',
 };
 
 export default function RootLayout({

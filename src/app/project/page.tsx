@@ -33,10 +33,10 @@ export default function Project() {
     <>
       <section>
         <div className="flex flex-col items-center text-center gap-5 py-12 pb-12">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-5xl font-bold">
             My <span className="text-[#00a67e]">Projects</span>
           </h1>
-          <h2 className="text-lg text-gray-600 dark:text-[#8892b0]">
+          <h2 className="text-lg">
             Berikut adalah beberapa project yang telah saya kerjakan
           </h2>
         </div>
@@ -45,13 +45,15 @@ export default function Project() {
       <section className="flex flex-col items-center gap-5 mb-10 px-5">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search projects..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="px-4 py-2 border border-[#00a67e] rounded-lg bg-[#00a67e]/10 
                      text-gray-900 dark:text-white w-full max-w-xs
-                     focus:outline-none focus:bg-[#00a67e]/20 focus:shadow-[0_0_10px_rgba(0,255,174,0.3)]
-                     placeholder:text-gray-500 dark:placeholder:text-[#8892b0] transition-all"
+                     focus:outline-none focus:bg-[#00a67e]/20 
+                     focus:shadow-[0_0_10px_rgba(0,255,174,0.3)]
+                     placeholder:text-gray-500 dark:placeholder:text-gray-400 
+                     transition-all"
         />
 
         <div className="flex gap-2 flex-wrap justify-center">
@@ -60,7 +62,7 @@ export default function Project() {
               key={category}
               onClick={() => setActiveFilter(category)}
               className={`px-4 py-2 border border-[#00a67e] rounded-lg font-medium
-                        transition-all ${
+                        transition-all duration-300 ${
                 activeFilter === category
                   ? 'bg-[#00a67e] text-[#000814]'
                   : 'bg-transparent text-[#00a67e] hover:bg-[#00a67e] hover:text-[#000814]'
@@ -78,8 +80,8 @@ export default function Project() {
             <ProjectCard key={project.id} project={project} />
           ))
         ) : (
-          <div className="col-span-full text-center text-gray-600 dark:text-[#8892b0] py-16 text-lg">
-            No Project.
+          <div className="col-span-full text-center text-gray-600 dark:text-gray-400 py-16 text-lg">
+            No projects found.
           </div>
         )}
       </section>
