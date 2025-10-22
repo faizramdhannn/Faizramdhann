@@ -44,7 +44,7 @@ export default function LoginPage() {
 
     window.dispatchEvent(new Event("usernameChange"));
 
-    alert("Data berhasil direset. Header kembali ke default.");
+    alert("Reset data successfully.");
   };
 
   return (
