@@ -13,18 +13,15 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Reduce build memory usage
+  // Optimize package imports
   experimental: {
-    optimizePackageImports: ['framer-motion', 'react-icons'],
+    optimizePackageImports: ['framer-motion'],
   },
 
   // Production optimizations
   productionBrowserSourceMaps: false,
-  
-  // Faster builds
-  swcMinify: true,
 
-  // Headers for caching
+  // Headers for caching static assets
   async headers() {
     return [
       {
