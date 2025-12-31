@@ -17,7 +17,7 @@ export default function About() {
   const experiences = [
     {
       title: 'Web Developer',
-      period: '2023 - Present',
+      period: '2025 - Present',
       description: 'Building modern web applications with Next.js and React',
       icon: '💻'
     },
