@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --bg-dark: #000000;
@@ -11,7 +13,7 @@ body {
   background: radial-gradient(
     circle at center,
     var(--bg-dark) 0%,
-    var(--bg-dark) 10%,
+    #001a2e 50%,
     var(--bg-dark) 100%
   );
   transition: background 0.3s ease;
@@ -23,7 +25,7 @@ html.light body {
   background: radial-gradient(
     circle at center,
     #f0f4f8 0%,
-    #e8eef3 10%,
+    #e8eef3 50%,
     var(--bg-light) 100%
   );
   color: var(--text-light);
@@ -44,7 +46,7 @@ html.light .text-\[\#00a67e\],
 }
 
 .project-card {
-  background: rgba(0, 23, 42, 0.5);
+  background: rgba(0, 23, 42, 0.6);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
@@ -64,13 +66,13 @@ label {
 }
 
 html.light label{
-  color: #fefefe
+  color: #00a67e
 }
 
 header {
   background: linear-gradient(
-    to top,
-    #000000,
+    to bottom,
+    #000814,
     rgba(0, 8, 20, 0.9),
     transparent
   );
@@ -79,7 +81,7 @@ header {
 
 html.light header {
   background: linear-gradient(
-    to top,
+    to bottom,
     #ffffff,
     rgba(255, 255, 255, 0.9),
     transparent
@@ -111,6 +113,15 @@ html.light input {
 }
 
 html.light input::placeholder {
+  color: #6b7280;
+}
+
+html.light textarea {
+  color: #000000;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+html.light textarea::placeholder {
   color: #6b7280;
 }
 

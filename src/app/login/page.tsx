@@ -1,124 +1,93 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  useEffect(() => {
-    const savedUsername = localStorage.getItem("username");
-    const savedPassword = localStorage.getItem("password");
-
-    if (savedUsername) setUsername(savedUsername);
-    if (savedPassword) setPassword(savedPassword);
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    if (username.trim().length < 3) {
-      alert("Username minimal 3 karakter");
-      return;
+    try {
+      const response = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        sessionStorage.setItem("adminAuth", "true");
+        router.push("/admin/dashboard");
+      } else {
+        setError("Invalid password");
+      }
+    } catch (err) {
+      setError("Authentication failed");
+    } finally {
+      setLoading(false);
     }
-
-    if (password.length < 5) {
-      alert("Password 5 character");
-      return;
-    }
-
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
-
-    window.dispatchEvent(new Event("usernameChange"));
-
-    alert("Login success!");
-  };
-
-  const handleReset = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-
-    setUsername("");
-    setPassword("");
-
-    window.dispatchEvent(new Event("usernameChange"));
-
-    alert("Reset data successfully.");
   };
 
   return (
     <section className="min-h-[calc(100vh-200px)] flex flex-col items-center justify-center px-6">
-      <h1 className="text-5xl font-bold mb-10 text-center">
-        Login <span className="text-[#00a67e]">Form</span>
-      </h1>
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold mb-3">
+            Admin <span className="text-[#00a67e]">Access</span>
+          </h1>
+          <p className="text-gray-400">Enter password to continue</p>
+        </div>
 
-      <div className="w-full max-w-2xl bg-[#0d1117] p-10 rounded-2xl shadow-lg space-y-6">
-        <form onSubmit={handleSubmit} className="space-y-5 text-left">
-          <div>
-            <label
-              htmlFor="username"
-              className="block mb-2 text-sm cursor-pointer text-[#00a67e]/90 hover:text-[#00a67e]"
-            >
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Input Username"
-              className="w-full p-3 rounded-lg bg-transparent border border-[#00a67e]/40 
+        <div className="bg-gradient-to-br from-[#0d1117] to-[#161b22] p-8 rounded-2xl shadow-2xl border border-[#00a67e]/20">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="password"
+                className="block mb-2 text-sm font-medium text-[#00a67e]"
+              >
+                Admin Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="w-full p-4 rounded-xl bg-[#0d1117] border-2 border-[#00a67e]/30 
                          text-white placeholder:text-gray-500
                          focus:outline-none focus:border-[#00a67e] 
-                         focus:shadow-[0_0_10px_rgba(0,166,126,0.4)] 
-                         transition-all"
-            />
-          </div>
+                         focus:shadow-[0_0_20px_rgba(0,166,126,0.3)] 
+                         transition-all duration-300"
+                required
+              />
+            </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm cursor-pointer text-[#00a67e]/90 hover:text-[#00a67e]"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Input Your Password"
-              className="w-full p-3 rounded-lg bg-transparent border border-[#00a67e]/40 
-                         text-white placeholder:text-gray-500
-                         focus:outline-none focus:border-[#00a67e] 
-                         focus:shadow-[0_0_10px_rgba(0,166,126,0.4)] 
-                         transition-all"
-            />
-          </div>
+            {error && (
+              <div className="text-red-400 text-sm text-center bg-red-500/10 p-3 rounded-lg border border-red-500/30">
+                {error}
+              </div>
+            )}
 
-          <div className="flex flex-col gap-3 pt-2">
             <button
               type="submit"
-              className="w-full py-3 bg-[#00a67e] text-black font-semibold 
-                         rounded-lg hover:bg-[#00a67e]/90 transition-all duration-300"
+              disabled={loading}
+              className="w-full py-4 bg-gradient-to-r from-[#00a67e] to-[#00b894] text-white font-bold 
+                       rounded-xl hover:shadow-[0_0_30px_rgba(0,166,126,0.5)] 
+                       transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+                       transform hover:scale-[1.02]"
             >
-              Login
+              {loading ? "Authenticating..." : "Access Dashboard"}
             </button>
-
-            {(username || password) && (
-              <button
-                type="button"
-                onClick={handleReset}
-                className="w-full py-3 text-m border border-red-500/30 
-                           text-white-500 rounded-lg hover:bg-red-500/10 
-                           transition-all"
-              >
-                Reset
-              </button>
-            )}
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </section>
   );
