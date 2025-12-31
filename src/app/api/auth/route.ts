@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: false, error: 'Invalid password' }, { status: 401 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Authentication failed' }, { status: 500 });
   }
 }

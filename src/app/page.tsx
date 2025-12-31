@@ -39,7 +39,7 @@ export default function Home() {
     if (cachedContent) {
       try {
         setContent(JSON.parse(cachedContent));
-      } catch (e) {
+      } catch {
         console.error('Failed to parse cached content');
       }
     } else {
@@ -125,9 +125,8 @@ export default function Home() {
                         quality={85}
                         placeholder="blur"
                         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAKAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAf/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = '/assets/profile.jpeg';
+                        onError={() => {
+                          console.log('Image failed to load');
                         }}
                       />
                     </motion.div>
@@ -268,9 +267,8 @@ export default function Home() {
                       height={22}
                       className="opacity-80 hover:opacity-100 transition-opacity"
                       loading="lazy"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = `/assets/${social.icon}.png`;
+                      onError={() => {
+                        console.log('Social icon failed to load');
                       }}
                     />
                   </motion.a>
@@ -513,7 +511,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
-              Let's Connect
+              Let&apos;s Connect
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Get In <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Touch</span>
@@ -556,9 +554,8 @@ export default function Home() {
                       height={32}
                       className="opacity-80 group-hover:opacity-100 transition-opacity"
                       loading="lazy"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = `/assets/${social.icon}.png`;
+                      onError={() => {
+                        console.log('Social icon failed to load');
                       }}
                     />
                   </div>

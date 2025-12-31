@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 interface ProjectData {
@@ -30,16 +30,7 @@ export default function AdminDashboard() {
   const [formData, setFormData] = useState<Partial<ProjectData> | Partial<ContentData>>({});
   const [showAddForm, setShowAddForm] = useState(false);
 
-  useEffect(() => {
-    const isAuth = sessionStorage.getItem("adminAuth");
-    if (!isAuth) {
-      router.push("/login");
-      return;
-    }
-    fetchData();
-  }, [router, activeTab]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       if (activeTab === 'projects') {
@@ -60,7 +51,16 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    const isAuth = sessionStorage.getItem("adminAuth");
+    if (!isAuth) {
+      router.push("/login");
+      return;
+    }
+    fetchData();
+  }, [router, fetchData]);
 
   const handleAddProject = async () => {
     try {

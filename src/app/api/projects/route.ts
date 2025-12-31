@@ -2,7 +2,21 @@ import { NextResponse } from 'next/server';
 import { readSheetData } from '@/lib/googleSheets';
 
 // Cache projects for 5 minutes
-let cache: { data: any[] | null; timestamp: number } = {
+interface CacheData {
+  data: Array<{
+    id: number;
+    name: string;
+    category: string;
+    description: string;
+    technologies: string[];
+    image: string;
+    link: string;
+    status: string;
+  }> | null;
+  timestamp: number;
+}
+
+const cache: CacheData = {
   data: null,
   timestamp: 0,
 };
@@ -41,10 +55,8 @@ export async function GET() {
     })).filter(p => p.status === 'active');
 
     // Update cache
-    cache = {
-      data: projects,
-      timestamp: now,
-    };
+    cache.data = projects;
+    cache.timestamp = now;
 
     return NextResponse.json(projects, {
       headers: {

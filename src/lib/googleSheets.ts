@@ -12,6 +12,7 @@ export async function getGoogleSheetsClient() {
   });
 
   const client = await auth.getClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return google.sheets({ version: 'v4', auth: client as any });
 }
 
@@ -27,6 +28,7 @@ export async function readSheetData(spreadsheetId: string, range: string) {
 export async function writeSheetData(
   spreadsheetId: string,
   range: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   values: any[][]
 ) {
   const sheets = await getGoogleSheetsClient();
@@ -41,6 +43,7 @@ export async function writeSheetData(
 export async function appendSheetData(
   spreadsheetId: string,
   range: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   values: any[][]
 ) {
   const sheets = await getGoogleSheetsClient();

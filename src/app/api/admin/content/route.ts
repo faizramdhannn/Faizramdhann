@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readSheetData, writeSheetData } from '@/lib/googleSheets';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const spreadsheetId = process.env.DATABASE_SPREADSHEET_ID;
     if (!spreadsheetId) {
