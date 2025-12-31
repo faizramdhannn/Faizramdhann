@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import ProjectCard from '@/components/ProjectCard';
 import type { Project } from '@/types/project';
+import { motion } from 'framer-motion';
 
 export default function Project() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,67 +51,149 @@ export default function Project() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[calc(100vh-300px)]">
-        <div className="text-2xl text-[#00a67e]">Loading projects...</div>
+      <div className="flex items-center justify-center min-h-screen">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="w-16 h-16 border-4 border-[#00a67e]/20 border-t-[#00a67e] rounded-full"
+        />
       </div>
     );
   }
 
   return (
-    <>
-      <section className="text-center py-12 px-5">
-        <h1 className="text-5xl font-bold mb-4">
-          My <span className="text-[#00a67e]">Projects</span>
-        </h1>
-        <p className="text-lg opacity-80 max-w-2xl mx-auto">
-          Explore my portfolio of projects showcasing my skills and experience in web development and data analysis.
-        </p>
-      </section>
+    <div className="min-h-screen px-6 md:px-8 py-32">
+      <div className="max-w-7xl mx-auto space-y-16">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-6"
+        >
+          <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider block">
+            Portfolio
+          </span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold">
+            My <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Projects</span>
+          </h1>
+          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
+            Explore my portfolio of projects showcasing my skills and experience in web development and data analysis
+          </p>
+        </motion.div>
 
-      <section className="flex flex-col items-center gap-5 mb-10 px-5">
-        <input
-          type="text"
-          placeholder="Search projects by name, description, or technology..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="px-5 py-3 border border-[#00a67e]/30 rounded-xl 
-                     bg-transparent w-full max-w-2xl
-                     focus:outline-none focus:border-[#00a67e] 
-                     focus:shadow-[0_0_20px_rgba(0,166,126,0.3)]
-                     placeholder:text-gray-500 transition-all duration-300
-                     hover:border-[#00a67e]/50"
-        />
-
-        <div className="flex gap-3 flex-wrap justify-center">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setActiveFilter(category)}
-              className={`px-5 py-2.5 border-2 border-[#00a67e] rounded-xl font-semibold
-                        transition-all duration-300 ${
-                activeFilter === category
-                  ? 'bg-[#00a67e] text-white shadow-[0_0_20px_rgba(0,166,126,0.4)]'
-                  : 'bg-transparent text-[#00a67e] hover:bg-[#00a67e]/10'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-5 md:px-10 lg:px-20 pb-12 max-w-7xl mx-auto">
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map(project => (
-            <ProjectCard key={project.id} project={project} />
-          ))
-        ) : (
-          <div className="col-span-full text-center opacity-70 py-20">
-            <div className="text-2xl font-semibold mb-3 text-[#00a67e]">No Projects Found</div>
-            <p className="text-lg">Try adjusting your search or filter criteria.</p>
+        {/* Search & Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="space-y-6"
+        >
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search projects by name, description, or technology..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-6 py-4 pl-14 bg-[#0d1117]/80 backdrop-blur-sm
+                         border-2 border-[#00a67e]/20 rounded-2xl text-white
+                         placeholder:text-white/40 focus:outline-none focus:border-[#00a67e]/50
+                         hover:border-[#00a67e]/30 transition-all duration-300
+                         shadow-lg shadow-black/20"
+              />
+              <svg
+                className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#00a67e]/50"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
           </div>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-3 justify-center">
+            {categories.map((category, index) => (
+              <motion.button
+                key={category}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
+                onClick={() => setActiveFilter(category)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                  activeFilter === category
+                    ? 'bg-gradient-to-r from-[#00a67e] to-[#00d9a5] text-white shadow-lg shadow-[#00a67e]/30'
+                    : 'bg-[#0d1117]/80 border-2 border-[#00a67e]/20 text-white/70 hover:border-[#00a67e]/40 hover:text-white'
+                }`}
+              >
+                {category}
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Project Count */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center"
+        >
+          <p className="text-white/50 text-sm">
+            Showing <span className="text-[#00a67e] font-semibold">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? 's' : ''}
+          </p>
+        </motion.div>
+
+        {/* Projects Grid */}
+        {filteredProjects.length > 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {filteredProjects.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center py-20"
+          >
+            <div className="max-w-md mx-auto space-y-4">
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold text-white mb-2">No Projects Found</h3>
+              <p className="text-white/60">
+                Try adjusting your search or filter criteria to find what you&apos;re looking for.
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setActiveFilter('All');
+                }}
+                className="mt-6 px-6 py-3 bg-[#00a67e]/10 border-2 border-[#00a67e]/30 
+                         text-[#00a67e] font-semibold rounded-xl hover:bg-[#00a67e]/20 
+                         hover:border-[#00a67e]/50 transition-all"
+              >
+                Clear Filters
+              </button>
+            </div>
+          </motion.div>
         )}
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

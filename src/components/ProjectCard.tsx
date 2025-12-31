@@ -2,69 +2,133 @@
 
 import Image from 'next/image';
 import type { Project } from '@/types/project';
+import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
   project: Project;
+  index?: number;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const technologies = Array.isArray(project.technologies) 
     ? project.technologies 
     : project.technologies.split(',').map(t => t.trim());
 
   const CardContent = (
-    <div
-      className="project-card relative border-2 border-[#00a67e]/20 rounded-2xl p-6 
-                 transition-all duration-500 w-full h-[400px] flex flex-col
-                 hover:-translate-y-3 hover:border-[#00a67e] 
-                 hover:shadow-[0_15px_40px_rgba(0,166,126,0.4)] 
-                 cursor-pointer group"
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={{ y: -8 }}
+      className="group relative bg-gradient-to-br from-[#0d1117]/90 to-[#161b22]/90 
+               backdrop-blur-sm rounded-3xl border border-[#00a67e]/20 
+               hover:border-[#00a67e]/50 transition-all duration-500
+               overflow-hidden h-full flex flex-col
+               hover:shadow-2xl hover:shadow-[#00a67e]/20"
     >
-      <div className="relative w-full h-[200px] rounded-xl overflow-hidden mb-4 
-                    group-hover:scale-105 transition-transform duration-500">
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#00a67e]/5 via-transparent to-transparent 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      
+      {/* Glow Effect */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#00a67e]/10 rounded-full blur-3xl 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      {/* Image Container */}
+      <div className="relative w-full h-56 overflow-hidden rounded-t-3xl">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/80 via-transparent to-transparent z-10" />
         <Image
           src={project.image}
           alt={project.name}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
+        
+        {/* Category Badge */}
+        <div className="absolute top-4 right-4 z-20">
+          <span className="px-4 py-2 bg-[#00a67e]/90 backdrop-blur-sm text-white text-xs font-bold 
+                       rounded-xl shadow-lg border border-white/10">
+            {project.category}
+          </span>
+        </div>
       </div>
 
-      <div className="flex-1 flex flex-col">
-        <h3 className="text-[#00a67e] text-2xl font-bold text-center mb-3 group-hover:scale-105 transition-transform">
+      {/* Content */}
+      <div className="relative flex-1 flex flex-col p-6 space-y-4">
+        {/* Title */}
+        <h3 className="text-2xl font-bold text-white group-hover:text-[#00a67e] 
+                     transition-colors duration-300 line-clamp-2">
           {project.name}
         </h3>
-        
-        <p className="text-sm text-center text-white mb-4 flex-1 opacity-90">
+
+        {/* Description */}
+        <p className="text-sm text-white/60 group-hover:text-white/80 
+                    transition-colors duration-300 line-clamp-3 flex-1">
           {project.description}
         </p>
 
-        <div className="mt-auto space-y-3">
-          <div className="text-xs text-white text-center">
-            <strong className="text-[#00a67e] text-sm">Category:</strong> {project.category}
-          </div>
-          
-          <div className="flex flex-wrap gap-2 justify-center">
-            {technologies.map((tech, idx) => (
-              <span
-                key={idx}
-                className="bg-[#00a67e]/20 text-[#00a67e] px-3 py-1.5 rounded-lg text-xs font-semibold
-                         border border-[#00a67e]/30 hover:bg-[#00a67e]/30 transition-all"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-2 pt-2">
+          {technologies.slice(0, 4).map((tech, idx) => (
+            <span
+              key={idx}
+              className="px-3 py-1.5 bg-[#00a67e]/10 border border-[#00a67e]/20 
+                       text-[#00a67e] text-xs font-semibold rounded-lg
+                       group-hover:bg-[#00a67e]/20 group-hover:border-[#00a67e]/40 
+                       transition-all duration-300"
+            >
+              {tech}
+            </span>
+          ))}
+          {technologies.length > 4 && (
+            <span className="px-3 py-1.5 bg-white/5 text-white/40 text-xs font-semibold rounded-lg">
+              +{technologies.length - 4}
+            </span>
+          )}
         </div>
+
+        {/* View Project Link */}
+        {project.link && (
+          <div className="pt-4 border-t border-white/5">
+            <div className="flex items-center justify-between text-[#00a67e] 
+                          group-hover:text-[#00d9a5] transition-colors">
+              <span className="text-sm font-semibold">View Project</span>
+              <svg
+                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+
+      {/* Corner Accent */}
+      <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-br from-[#00a67e]/10 to-transparent 
+                    rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    </motion.div>
   );
 
   return project.link ? (
-    <a href={project.link} target="_blank" rel="noopener noreferrer">
+    <a 
+      href={project.link} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="block h-full"
+    >
       {CardContent}
     </a>
   ) : (
-    CardContent
+    <div className="h-full">
+      {CardContent}
+    </div>
   );
 }
