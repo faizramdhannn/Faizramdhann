@@ -43,10 +43,10 @@ export default function LoginPage() {
           <h1 className="text-4xl font-bold mb-3">
             Admin <span className="text-[#00a67e]">Access</span>
           </h1>
-          <p className="text-gray-400">Enter password to continue</p>
+          <p className="text-foreground/60">Enter password to continue</p>
         </div>
 
-        <div className="bg-gradient-to-br from-[#0d1117] to-[#161b22] p-8 rounded-2xl shadow-2xl border border-[#00a67e]/20">
+        <div className="bg-gradient-to-br from-surface to-surface2 p-8 rounded-2xl shadow-2xl border border-[#00a67e]/20">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
@@ -61,8 +61,8 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full p-4 rounded-xl bg-[#0d1117] border-2 border-[#00a67e]/30 
-                         text-white placeholder:text-gray-500
+                className="w-full p-4 rounded-xl bg-surface border-2 border-[#00a67e]/30 
+                         text-foreground placeholder:text-foreground/50
                          focus:outline-none focus:border-[#00a67e] 
                          focus:shadow-[0_0_20px_rgba(0,166,126,0.3)] 
                          transition-all duration-300"
@@ -79,7 +79,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-[#00a67e] to-[#00b894] text-white font-bold 
+              className="w-full py-4 bg-gradient-to-r from-[#00a67e] to-[#00b894] text-white font-bold
                        rounded-xl hover:shadow-[0_0_30px_rgba(0,166,126,0.5)] 
                        transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
                        transform hover:scale-[1.02]"

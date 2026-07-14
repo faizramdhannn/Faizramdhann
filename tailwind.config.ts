@@ -15,6 +15,9 @@ const config: Config = {
           light: '#00d9a5',
           dark: '#008c6a',
         },
+        foreground: 'rgb(var(--fg-rgb) / <alpha-value>)',
+        surface: 'rgb(var(--surface-rgb) / <alpha-value>)',
+        surface2: 'rgb(var(--surface2-rgb) / <alpha-value>)',
       },
       animation: {
         'gradient': 'gradient 3s ease infinite',

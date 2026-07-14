@@ -10,6 +10,17 @@
     --text-light: #000000;
     --primary: #00a67e;
     --primary-light: #00d9a5;
+
+    /* Theme-aware color tokens (used via Tailwind's foreground/surface/surface2) */
+    --fg-rgb: 255 255 255;
+    --surface-rgb: 13 17 23;
+    --surface2-rgb: 22 27 34;
+  }
+
+  html.light {
+    --fg-rgb: 15 23 42;
+    --surface-rgb: 255 255 255;
+    --surface2-rgb: 244 250 248;
   }
 
   * {
@@ -62,40 +73,9 @@
 }
 
 @layer components {
-  /* Text colors for light mode */
-  html.light h1,
-  html.light h2,
-  html.light h3,
-  html.light h4,
-  html.light h5,
-  html.light h6,
-  html.light p,
-  html.light div,
-  html.light span:not(.text-\[\#00a67e\]),
-  html.light label {
-    @apply text-gray-900;
-  }
-
-  /* Primary color stays consistent */
+  /* Primary color stays consistent across themes */
   .text-\[\#00a67e\] {
     color: var(--primary) !important;
-  }
-
-  /* Project card styles - always dark */
-  .project-card {
-    background: linear-gradient(135deg, rgba(13, 17, 23, 0.95) 0%, rgba(22, 27, 34, 0.95) 100%);
-    backdrop-filter: blur(10px);
-  }
-
-  html.light .project-card {
-    background: linear-gradient(135deg, rgba(13, 17, 23, 0.95) 0%, rgba(22, 27, 34, 0.95) 100%);
-    backdrop-filter: blur(10px);
-  }
-
-  .project-card h3,
-  .project-card p,
-  .project-card span {
-    @apply text-white;
   }
 
   /* Label styles */
@@ -108,20 +88,18 @@
   input,
   textarea,
   select {
-    @apply text-white transition-all duration-300;
-    background: rgba(13, 17, 23, 0.8);
+    @apply text-foreground transition-all duration-300;
+    background: rgb(var(--surface-rgb) / 0.8);
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-gray-500 opacity-60;
+    @apply text-foreground/40;
   }
 
   html.light input,
   html.light textarea,
   html.light select {
-    @apply text-gray-900;
-    background: rgba(255, 255, 255, 0.9);
     border-color: rgba(0, 166, 126, 0.3);
   }
 

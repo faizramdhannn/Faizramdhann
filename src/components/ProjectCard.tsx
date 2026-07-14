@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import type { Project } from '@/types/project';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
@@ -20,7 +21,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
       whileHover={{ y: -8 }}
-      className="group relative bg-gradient-to-br from-[#0d1117]/90 to-[#161b22]/90 
+      className="group relative bg-gradient-to-br from-surface/90 to-surface2/90 
                backdrop-blur-sm rounded-3xl border border-[#00a67e]/20 
                hover:border-[#00a67e]/50 transition-all duration-500
                overflow-hidden h-full flex flex-col
@@ -36,7 +37,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
       {/* Image Container */}
       <div className="relative w-full h-56 overflow-hidden rounded-t-3xl">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/80 via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent z-10" />
         <Image
           src={project.image}
           alt={project.name}
@@ -47,7 +48,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         {/* Category Badge */}
         <div className="absolute top-4 right-4 z-20">
           <span className="px-4 py-2 bg-[#00a67e]/90 backdrop-blur-sm text-white text-xs font-bold 
-                       rounded-xl shadow-lg border border-white/10">
+                       rounded-xl shadow-lg border border-foreground/10">
             {project.category}
           </span>
         </div>
@@ -56,13 +57,13 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       {/* Content */}
       <div className="relative flex-1 flex flex-col p-6 space-y-4">
         {/* Title */}
-        <h3 className="text-2xl font-bold text-white group-hover:text-[#00a67e] 
+        <h3 className="text-2xl font-bold text-foreground group-hover:text-[#00a67e] 
                      transition-colors duration-300 line-clamp-2">
           {project.name}
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-white/60 group-hover:text-white/80 
+        <p className="text-sm text-foreground/60 group-hover:text-foreground/80 
                     transition-colors duration-300 line-clamp-3 flex-1">
           {project.description}
         </p>
@@ -81,7 +82,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             </span>
           ))}
           {technologies.length > 4 && (
-            <span className="px-3 py-1.5 bg-white/5 text-white/40 text-xs font-semibold rounded-lg">
+            <span className="px-3 py-1.5 bg-foreground/5 text-foreground/40 text-xs font-semibold rounded-lg">
               +{technologies.length - 4}
             </span>
           )}
@@ -89,23 +90,11 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
         {/* View Project Link */}
         {project.link && (
-          <div className="pt-4 border-t border-white/5">
+          <div className="pt-4 border-t border-foreground/5">
             <div className="flex items-center justify-between text-[#00a67e] 
                           group-hover:text-[#00d9a5] transition-colors">
               <span className="text-sm font-semibold">View Project</span>
-              <svg
-                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+              <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-2" />
             </div>
           </div>
         )}

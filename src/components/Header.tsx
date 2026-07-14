@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useTheme } from './ThemeProvider';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
@@ -37,8 +38,8 @@ export default function Header() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'py-4 bg-[#000814]/95 backdrop-blur-xl border-b border-[#00a67e]/20 shadow-lg shadow-[#00a67e]/5'
-          : 'py-6 bg-gradient-to-b from-[#000814]/95 via-[#000814]/80 to-transparent'
+          ? 'py-4 bg-surface/95 backdrop-blur-xl border-b border-[#00a67e]/20 shadow-lg shadow-[#00a67e]/5'
+          : 'py-6 bg-gradient-to-b from-surface/95 via-surface/80 to-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
@@ -53,7 +54,7 @@ export default function Header() {
               <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">
                 Faiz
               </span>
-              <span className="text-white/90 ml-1">Ramdhan</span>
+              <span className="text-foreground/90 ml-1">Ramdhan</span>
             </h1>
           </motion.div>
         </Link>
@@ -69,7 +70,7 @@ export default function Header() {
                 className={`relative px-5 py-2.5 rounded-lg transition-all duration-300 ${
                   pathname === item.href
                     ? 'text-[#00a67e]'
-                    : 'text-white/70 hover:text-white'
+                    : 'text-foreground/70 hover:text-foreground'
                 }`}
               >
                 <span className="relative z-10 font-medium text-[15px] tracking-wide">
@@ -103,13 +104,13 @@ export default function Header() {
             {mounted && (
               <motion.span
                 key={theme}
-                initial={{ rotate: -180, opacity: 0 }}
+                initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 180, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-xl"
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="flex text-[#00a67e]"
               >
-                {theme === 'dark' ? '🌙' : '☀️'}
+                {theme === 'dark' ? <Moon size={18} /> : <Sun size={18} />}
               </motion.span>
             )}
           </motion.button>
@@ -117,22 +118,12 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5
-                     border border-[#00a67e]/30 rounded-xl bg-[#00a67e]/5 hover:bg-[#00a67e]/10"
+            className="md:hidden w-10 h-10 flex items-center justify-center
+                     border border-[#00a67e]/30 rounded-xl bg-[#00a67e]/5 hover:bg-[#00a67e]/10
+                     text-[#00a67e]"
             aria-label="Toggle menu"
           >
-            <motion.span
-              animate={mobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="w-5 h-0.5 bg-[#00a67e] rounded-full transition-all"
-            />
-            <motion.span
-              animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="w-5 h-0.5 bg-[#00a67e] rounded-full transition-all"
-            />
-            <motion.span
-              animate={mobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="w-5 h-0.5 bg-[#00a67e] rounded-full transition-all"
-            />
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
@@ -145,7 +136,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden bg-[#000814]/98 backdrop-blur-xl border-t border-[#00a67e]/20"
+            className="md:hidden overflow-hidden bg-surface/98 backdrop-blur-xl border-t border-[#00a67e]/20"
           >
             <nav className="px-6 py-6 space-y-2">
               {navItems.map((item, index) => (
@@ -157,7 +148,7 @@ export default function Header() {
                     className={`px-4 py-3 rounded-lg transition-all ${
                       pathname === item.href
                         ? 'bg-[#00a67e]/10 text-[#00a67e] border border-[#00a67e]/30'
-                        : 'text-white/70 hover:bg-white/5 hover:text-white'
+                        : 'text-foreground/70 hover:bg-foreground/5 hover:text-foreground'
                     }`}
                   >
                     <span className="font-medium">{item.label}</span>

@@ -35,7 +35,7 @@ export default function Footer() {
                 Faiz Ramdhan
               </span>
             </h3>
-            <p className="text-sm md:text-base text-white/60 max-w-md">
+            <p className="text-sm md:text-base text-foreground/60 max-w-md">
               Crafting digital experiences with passion and precision
             </p>
           </motion.div>
@@ -97,10 +97,10 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center space-y-2"
           >
-            <p className="text-sm text-white/50">
+            <p className="text-sm text-foreground/50">
               &copy; {currentYear} <span className="text-[#00a67e]">Faiz Ramdhan Azmalia</span>. All rights reserved.
             </p>
-            <p className="text-xs text-white/40">
+            <p className="text-xs text-foreground/40">
               Built with Next.js & Tailwind CSS
             </p>
           </motion.div>

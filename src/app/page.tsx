@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useTheme } from '@/components/ThemeProvider';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, MapPin, Home as HomeIcon, Briefcase, ChevronRight } from 'lucide-react';
 
 interface Content {
   heroTitle: string;
@@ -99,7 +100,7 @@ export default function Home() {
             >
               <div className="relative">
                 {/* Glow Effect */}
-                <div className="absolute inset-0 bg-[#00a67e]/20 blur-3xl rounded-full scale-110 animate-pulse" />
+                <div className="absolute inset-0 bg-[#00a67e]/20 blur-3xl rounded-full scale-110" />
                 
                 {/* Image Container */}
                 <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px]">
@@ -138,11 +139,11 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1, duration: 0.5 }}
-                  className="absolute -bottom-4 -right-4 bg-[#00a67e] text-white px-5 py-2.5 
+                  className="absolute -bottom-4 -right-4 bg-[#00a67e] text-white px-5 py-2.5
                            rounded-2xl shadow-lg font-semibold text-sm
-                           border-2 border-white/20"
+                           border-2 border-white/20 flex items-center gap-1.5"
                 >
-                  ✨ Available for work
+                  <Sparkles size={14} /> Available for work
                 </motion.div>
               </div>
             </motion.div>
@@ -194,7 +195,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
-                className="text-lg sm:text-xl lg:text-2xl text-white/70 font-light"
+                className="text-lg sm:text-xl lg:text-2xl text-foreground/70 font-light"
               >
                 Web Developer & Creative Problem Solver
               </motion.p>
@@ -204,7 +205,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
-                className="text-base lg:text-lg text-white/60 leading-relaxed max-w-2xl"
+                className="text-base lg:text-lg text-foreground/60 leading-relaxed max-w-2xl"
               >
                 {content.heroDescription}
               </motion.p>
@@ -230,7 +231,7 @@ export default function Home() {
                   onClick={() => scrollToSection('about')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 border-2 border-[#00a67e]/30 text-white font-semibold 
+                  className="px-8 py-4 border-2 border-[#00a67e]/30 text-foreground font-semibold 
                            rounded-xl hover:border-[#00a67e] hover:bg-[#00a67e]/10 transition-all"
                 >
                   Learn More
@@ -329,7 +330,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="group relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+              className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
                        backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
                        hover:border-[#00a67e]/40 transition-all duration-500
                        hover:shadow-2xl hover:shadow-[#00a67e]/10"
@@ -340,7 +341,7 @@ export default function Home() {
               <h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
                 Introduction
               </h3>
-              <p className="text-lg md:text-xl text-white/70 leading-relaxed relative">
+              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed relative">
                 {content.aboutDescription}
               </p>
             </motion.div>
@@ -350,7 +351,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+              className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
                        backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
                        hover:border-[#00a67e]/40 transition-all duration-500
                        hover:shadow-2xl hover:shadow-[#00a67e]/10"
@@ -361,23 +362,23 @@ export default function Home() {
               <h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
                 Background
               </h3>
-              <div className="space-y-4 text-lg md:text-xl text-white/70 relative">
+              <div className="space-y-4 text-lg md:text-xl text-foreground/70 relative">
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">📍</span>
+                  <MapPin className="text-[#00a67e] flex-shrink-0" size={24} />
                   <div>
-                    <span className="font-semibold text-white">Born:</span> Ciamis, 2001
+                    <span className="font-semibold text-foreground">Born:</span> Ciamis, 2001
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">🏠</span>
+                  <HomeIcon className="text-[#00a67e] flex-shrink-0" size={24} />
                   <div>
-                    <span className="font-semibold text-white">Based in:</span> Bandung, Indonesia
+                    <span className="font-semibold text-foreground">Based in:</span> Bandung, Indonesia
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <span className="text-2xl">💼</span>
+                  <Briefcase className="text-[#00a67e] flex-shrink-0" size={24} />
                   <div>
-                    <span className="font-semibold text-white">Role:</span> Web Developer
+                    <span className="font-semibold text-foreground">Role:</span> Web Developer
                   </div>
                 </div>
               </div>
@@ -436,7 +437,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+            className="relative bg-gradient-to-br from-surface/80 to-surface2/80 
                      backdrop-blur-sm p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
                      shadow-2xl"
           >
@@ -462,7 +463,7 @@ export default function Home() {
                                group-hover:scale-110 transition-transform">
                       {skill.name}
                     </p>
-                    <p className="text-xs text-white/50 font-medium">
+                    <p className="text-xs text-foreground/50 font-medium">
                       {skill.category}
                     </p>
                   </div>
@@ -516,7 +517,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Get In <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Touch</span>
             </h2>
-            <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto">
               {content.contactDescription}
             </p>
           </motion.div>
@@ -534,7 +535,7 @@ export default function Home() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ scale: 1.03, y: -5 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+                className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
                          backdrop-blur-sm p-8 rounded-3xl border border-[#00a67e]/20 
                          hover:border-[#00a67e]/40 transition-all duration-300
                          hover:shadow-2xl hover:shadow-[#00a67e]/20"
@@ -564,20 +565,16 @@ export default function Home() {
                     <p className="text-[#00a67e] font-bold text-lg mb-1 group-hover:text-[#00d9a5] transition-colors">
                       {social.alt}
                     </p>
-                    <p className="text-white/60 text-sm truncate group-hover:text-white/80 transition-colors">
+                    <p className="text-foreground/60 text-sm truncate group-hover:text-foreground/80 transition-colors">
                       {social.label}
                     </p>
                   </div>
                   
-                  <svg
-                    className="w-5 h-5 text-[#00a67e]/50 group-hover:text-[#00a67e] 
+                  <ChevronRight
+                    size={20}
+                    className="text-[#00a67e]/50 group-hover:text-[#00a67e]
                              group-hover:translate-x-1 transition-all flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  />
                 </div>
               </motion.a>
             ))}

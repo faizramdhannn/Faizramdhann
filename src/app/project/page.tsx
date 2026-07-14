@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import ProjectCard from '@/components/ProjectCard';
 import type { Project } from '@/types/project';
 import { motion } from 'framer-motion';
+import { Search, SearchX } from 'lucide-react';
 
 export default function Project() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,7 +78,7 @@ export default function Project() {
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold">
             My <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Projects</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
             Explore my portfolio of projects showcasing my skills and experience in web development and data analysis
           </p>
         </motion.div>
@@ -97,25 +98,13 @@ export default function Project() {
                 placeholder="Search projects by name, description, or technology..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 pl-14 bg-[#0d1117]/80 backdrop-blur-sm
-                         border-2 border-[#00a67e]/20 rounded-2xl text-white
-                         placeholder:text-white/40 focus:outline-none focus:border-[#00a67e]/50
+                className="w-full px-6 py-4 pl-14 bg-surface/80 backdrop-blur-sm
+                         border-2 border-[#00a67e]/20 rounded-2xl text-foreground
+                         placeholder:text-foreground/40 focus:outline-none focus:border-[#00a67e]/50
                          hover:border-[#00a67e]/30 transition-all duration-300
                          shadow-lg shadow-black/20"
               />
-              <svg
-                className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#00a67e]/50"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#00a67e]/50" size={20} />
             </div>
           </div>
 
@@ -133,7 +122,7 @@ export default function Project() {
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                   activeFilter === category
                     ? 'bg-gradient-to-r from-[#00a67e] to-[#00d9a5] text-white shadow-lg shadow-[#00a67e]/30'
-                    : 'bg-[#0d1117]/80 border-2 border-[#00a67e]/20 text-white/70 hover:border-[#00a67e]/40 hover:text-white'
+                    : 'bg-surface/80 border-2 border-[#00a67e]/20 text-foreground/70 hover:border-[#00a67e]/40 hover:text-foreground'
                 }`}
               >
                 {category}
@@ -149,7 +138,7 @@ export default function Project() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center"
         >
-          <p className="text-white/50 text-sm">
+          <p className="text-foreground/50 text-sm">
             Showing <span className="text-[#00a67e] font-semibold">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? 's' : ''}
           </p>
         </motion.div>
@@ -174,9 +163,9 @@ export default function Project() {
             className="text-center py-20"
           >
             <div className="max-w-md mx-auto space-y-4">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-bold text-white mb-2">No Projects Found</h3>
-              <p className="text-white/60">
+              <SearchX className="mx-auto mb-4 text-[#00a67e]/60" size={56} />
+              <h3 className="text-2xl font-bold text-foreground mb-2">No Projects Found</h3>
+              <p className="text-foreground/60">
                 Try adjusting your search or filter criteria to find what you&apos;re looking for.
               </p>
               <button

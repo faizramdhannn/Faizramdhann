@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { MapPin, Home as HomeIcon, Briefcase, Code2, BookOpen, Rocket, ArrowRight, Mail } from 'lucide-react';
 
 export default function About() {
   const skills = [
@@ -19,19 +20,19 @@ export default function About() {
       title: 'Web Developer',
       period: '2025 - Present',
       description: 'Building modern web applications with Next.js and React',
-      icon: '💻'
+      icon: Code2
     },
     {
       title: 'Self Learning',
       period: '2021 - 2023',
       description: 'Continuously improving skills through online courses and projects',
-      icon: '📚'
+      icon: BookOpen
     },
     {
       title: 'Creative Projects',
       period: '2020 - Present',
       description: 'Developing personal projects and experimenting with new technologies',
-      icon: '🚀'
+      icon: Rocket
     }
   ];
   
@@ -51,7 +52,7 @@ export default function About() {
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
             About <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Me</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto">
             Passionate developer dedicated to creating exceptional digital experiences
           </p>
         </motion.div>
@@ -63,7 +64,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+            className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
                      backdrop-blur-sm p-10 rounded-3xl border border-[#00a67e]/20 
                      hover:border-[#00a67e]/40 transition-all duration-500
                      hover:shadow-2xl hover:shadow-[#00a67e]/10"
@@ -74,7 +75,7 @@ export default function About() {
             <h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
               Introduction
             </h2>
-            <p className="text-lg text-white/70 leading-relaxed relative">
+            <p className="text-lg text-foreground/70 leading-relaxed relative">
               Hello! I&apos;m <span className="text-[#00a67e] font-semibold">Faiz Ramdhan Azmalia</span>. 
               I&apos;m passionate about learning new technologies, creating useful solutions, and finding joy in every challenge. 
               For me, every project is an opportunity to make an impact and share creativity with others.
@@ -86,7 +87,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+            className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
                      backdrop-blur-sm p-10 rounded-3xl border border-[#00a67e]/20 
                      hover:border-[#00a67e]/40 transition-all duration-500
                      hover:shadow-2xl hover:shadow-[#00a67e]/10"
@@ -97,23 +98,23 @@ export default function About() {
             <h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
               Background
             </h2>
-            <div className="space-y-5 text-lg text-white/70 relative">
-              <div className="flex items-start gap-4 group/item hover:text-white/90 transition-colors">
-                <span className="text-2xl flex-shrink-0">📍</span>
+            <div className="space-y-5 text-lg text-foreground/70 relative">
+              <div className="flex items-start gap-4 group/item hover:text-foreground/90 transition-colors">
+                <MapPin className="text-[#00a67e] flex-shrink-0" size={24} />
                 <div>
-                  <span className="font-semibold text-white">Born:</span> Ciamis, 2001
+                  <span className="font-semibold text-foreground">Born:</span> Ciamis, 2001
                 </div>
               </div>
-              <div className="flex items-start gap-4 group/item hover:text-white/90 transition-colors">
-                <span className="text-2xl flex-shrink-0">🏠</span>
+              <div className="flex items-start gap-4 group/item hover:text-foreground/90 transition-colors">
+                <HomeIcon className="text-[#00a67e] flex-shrink-0" size={24} />
                 <div>
-                  <span className="font-semibold text-white">Based in:</span> Bandung, Indonesia
+                  <span className="font-semibold text-foreground">Based in:</span> Bandung, Indonesia
                 </div>
               </div>
-              <div className="flex items-start gap-4 group/item hover:text-white/90 transition-colors">
-                <span className="text-2xl flex-shrink-0">💼</span>
+              <div className="flex items-start gap-4 group/item hover:text-foreground/90 transition-colors">
+                <Briefcase className="text-[#00a67e] flex-shrink-0" size={24} />
                 <div>
-                  <span className="font-semibold text-white">Role:</span> Web Developer
+                  <span className="font-semibold text-foreground">Role:</span> Web Developer
                 </div>
               </div>
             </div>
@@ -146,7 +147,7 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="group relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+                className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
                          backdrop-blur-sm p-8 rounded-3xl border border-[#00a67e]/20 
                          hover:border-[#00a67e]/40 transition-all duration-300
                          hover:shadow-2xl hover:shadow-[#00a67e]/10"
@@ -155,13 +156,13 @@ export default function About() {
                               group-hover:bg-[#00a67e]/10 transition-all" />
                 
                 <div className="relative space-y-4">
-                  <div className="text-4xl">{exp.icon}</div>
+                  <exp.icon className="text-[#00a67e]" size={32} />
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#00a67e] transition-colors">
+                    <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-[#00a67e] transition-colors">
                       {exp.title}
                     </h3>
                     <p className="text-sm text-[#00a67e]/80 font-medium mb-3">{exp.period}</p>
-                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">
+                    <p className="text-foreground/60 text-sm leading-relaxed group-hover:text-foreground/80 transition-colors">
                       {exp.description}
                     </p>
                   </div>
@@ -188,7 +189,7 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="relative bg-gradient-to-br from-[#0d1117]/80 to-[#161b22]/80 
+          <div className="relative bg-gradient-to-br from-surface/80 to-surface2/80 
                         backdrop-blur-sm p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
                         shadow-2xl">
             <div className="absolute inset-0 bg-[#00a67e]/5 rounded-3xl blur-3xl" />
@@ -205,10 +206,10 @@ export default function About() {
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-white group-hover:text-[#00a67e] transition-colors">
+                      <span className="text-lg font-bold text-foreground group-hover:text-[#00a67e] transition-colors">
                         {skill.name}
                       </span>
-                      <span className="text-xs text-white/40 font-medium px-2 py-1 rounded-full bg-white/5">
+                      <span className="text-xs text-foreground/40 font-medium px-2 py-1 rounded-full bg-foreground/5">
                         {skill.category}
                       </span>
                     </div>
@@ -217,7 +218,7 @@ export default function About() {
                     </span>
                   </div>
                   
-                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 bg-foreground/5 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
@@ -226,7 +227,7 @@ export default function About() {
                       className="h-full bg-gradient-to-r from-[#00a67e] to-[#00d9a5] rounded-full
                                relative overflow-hidden"
                     >
-                      <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                      <div className="absolute inset-0 bg-foreground/20 animate-pulse" />
                     </motion.div>
                   </div>
                 </motion.div>
@@ -246,7 +247,7 @@ export default function About() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to work <span className="text-[#00a67e]">together?</span>
           </h2>
-          <p className="text-lg text-white/60 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-foreground/60 mb-8 max-w-2xl mx-auto">
             Let&apos;s create something amazing. Get in touch and let&apos;s discuss your next project.
           </p>
           <motion.a
@@ -257,10 +258,9 @@ export default function About() {
                      text-white font-semibold rounded-xl shadow-lg shadow-[#00a67e]/30
                      hover:shadow-xl hover:shadow-[#00a67e]/40 transition-all"
           >
+            <Mail size={18} />
             <span>Get In Touch</span>
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+            <ArrowRight size={18} />
           </motion.a>
         </motion.div>
       </div>

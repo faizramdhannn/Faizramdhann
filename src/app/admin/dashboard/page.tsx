@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { LogOut, Plus, Pencil, Trash2, Lightbulb } from "lucide-react";
 
 interface ProjectData {
   id: number;
@@ -165,10 +166,10 @@ export default function AdminDashboard() {
           </h1>
           <button
             onClick={handleLogout}
-            className="px-6 py-3 border-2 border-red-500 text-red-500 font-semibold rounded-xl
+            className="flex items-center gap-2 px-6 py-3 border-2 border-red-500 text-red-500 font-semibold rounded-xl
                      hover:bg-red-500/10 transition-all"
           >
-            Logout
+            <LogOut size={18} /> Logout
           </button>
         </div>
 
@@ -183,7 +184,7 @@ export default function AdminDashboard() {
             className={`px-6 py-3 font-semibold rounded-t-xl transition-all ${
               activeTab === 'projects'
                 ? 'bg-[#00a67e] text-white'
-                : 'bg-[#0d1117] text-gray-300 hover:bg-[#161b22]'
+                : 'bg-surface text-foreground/80 hover:bg-surface2'
             }`}
           >
             Projects
@@ -197,7 +198,7 @@ export default function AdminDashboard() {
             className={`px-6 py-3 font-semibold rounded-t-xl transition-all ${
               activeTab === 'content'
                 ? 'bg-[#00a67e] text-white'
-                : 'bg-[#0d1117] text-gray-300 hover:bg-[#161b22]'
+                : 'bg-surface text-foreground/80 hover:bg-surface2'
             }`}
           >
             Content
@@ -210,15 +211,15 @@ export default function AdminDashboard() {
             <div className="mb-6">
               <button
                 onClick={() => setShowAddForm(!showAddForm)}
-                className="px-6 py-3 bg-[#00a67e] text-white font-semibold rounded-xl
+                className="flex items-center gap-2 px-6 py-3 bg-[#00a67e] text-white font-semibold rounded-xl
                          hover:shadow-[0_0_20px_rgba(0,166,126,0.4)] transition-all"
               >
-                {showAddForm ? "Cancel" : "+ Add Project"}
+                {showAddForm ? "Cancel" : <><Plus size={18} /> Add Project</>}
               </button>
             </div>
 
             {showAddForm && (
-              <div className="bg-[#0d1117] p-6 rounded-2xl mb-8 border border-[#00a67e]/30">
+              <div className="bg-surface p-6 rounded-2xl mb-8 border border-[#00a67e]/30">
                 <h2 className="text-2xl font-bold mb-4 text-[#00a67e]">Add New Project</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
@@ -226,7 +227,7 @@ export default function AdminDashboard() {
                     placeholder="Project Name"
                     value={(formData as Partial<ProjectData>).name || ""}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                    className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                              focus:outline-none focus:border-[#00a67e]"
                   />
                   <input
@@ -234,7 +235,7 @@ export default function AdminDashboard() {
                     placeholder="Category"
                     value={(formData as Partial<ProjectData>).category || ""}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                    className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                              focus:outline-none focus:border-[#00a67e]"
                   />
                   <input
@@ -242,7 +243,7 @@ export default function AdminDashboard() {
                     placeholder="Technologies (comma-separated)"
                     value={(formData as Partial<ProjectData>).technologies || ""}
                     onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
-                    className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white md:col-span-2
+                    className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground md:col-span-2
                              focus:outline-none focus:border-[#00a67e]"
                   />
                   <input
@@ -250,7 +251,7 @@ export default function AdminDashboard() {
                     placeholder="Image URL"
                     value={(formData as Partial<ProjectData>).image || ""}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                    className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                              focus:outline-none focus:border-[#00a67e]"
                   />
                   <input
@@ -258,14 +259,14 @@ export default function AdminDashboard() {
                     placeholder="Project Link"
                     value={(formData as Partial<ProjectData>).link || ""}
                     onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                    className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                    className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                              focus:outline-none focus:border-[#00a67e]"
                   />
                   <textarea
                     placeholder="Description"
                     value={(formData as Partial<ProjectData>).description || ""}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white md:col-span-2 h-24
+                    className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground md:col-span-2 h-24
                              focus:outline-none focus:border-[#00a67e]"
                   />
                 </div>
@@ -283,7 +284,7 @@ export default function AdminDashboard() {
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className="bg-[#0d1117] p-6 rounded-2xl border border-[#00a67e]/20
+                  className="bg-surface p-6 rounded-2xl border border-[#00a67e]/20
                            hover:border-[#00a67e]/50 transition-all"
                 >
                   {editingId === project.id ? (
@@ -293,41 +294,41 @@ export default function AdminDashboard() {
                           type="text"
                           value={(formData as Partial<ProjectData>).name || ""}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                          className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                         <input
                           type="text"
                           value={(formData as Partial<ProjectData>).category || ""}
                           onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                          className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                          className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                         <input
                           type="text"
                           value={(formData as Partial<ProjectData>).technologies || ""}
                           onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
-                          className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white md:col-span-2
+                          className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground md:col-span-2
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                         <input
                           type="text"
                           value={(formData as Partial<ProjectData>).image || ""}
                           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                          className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                          className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                         <input
                           type="text"
                           value={(formData as Partial<ProjectData>).link || ""}
                           onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                          className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                          className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                         <textarea
                           value={(formData as Partial<ProjectData>).description || ""}
                           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                          className="p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white md:col-span-2 h-24
+                          className="p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground md:col-span-2 h-24
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                       </div>
@@ -340,7 +341,7 @@ export default function AdminDashboard() {
                         </button>
                         <button
                           onClick={cancelEdit}
-                          className="px-6 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-500/10 transition-all"
+                          className="px-6 py-2 border border-foreground/30 text-foreground/80 rounded-lg hover:bg-foreground/10 transition-all"
                         >
                           Cancel
                         </button>
@@ -350,16 +351,16 @@ export default function AdminDashboard() {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <h3 className="text-xl font-bold text-[#00a67e] mb-2">{project.name}</h3>
-                        <p className="text-gray-300 mb-2">{project.description}</p>
+                        <p className="text-foreground/80 mb-2">{project.description}</p>
                         <div className="flex flex-wrap gap-2 mb-2">
                           <span className="text-sm bg-[#00a67e]/20 text-[#00a67e] px-3 py-1 rounded-lg">
                             {project.category}
                           </span>
-                          <span className="text-sm text-gray-400">
+                          <span className="text-sm text-foreground/60">
                             Tech: {project.technologies}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-foreground/50">
                           Status: <span className={project.status === 'active' ? 'text-green-400' : 'text-red-400'}>
                             {project.status}
                           </span>
@@ -368,15 +369,15 @@ export default function AdminDashboard() {
                       <div className="flex gap-2 ml-4">
                         <button
                           onClick={() => startEdit(project)}
-                          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
+                          className="flex items-center gap-1.5 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
                         >
-                          Edit
+                          <Pencil size={16} /> Edit
                         </button>
                         <button
                           onClick={() => handleDeleteProject(project.id)}
-                          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
+                          className="flex items-center gap-1.5 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
                         >
-                          Delete
+                          <Trash2 size={16} /> Delete
                         </button>
                       </div>
                     </div>
@@ -390,9 +391,10 @@ export default function AdminDashboard() {
         {/* Content Tab */}
         {activeTab === 'content' && (
           <div className="space-y-4">
-            <div className="bg-[#00a67e]/10 border border-[#00a67e]/30 p-4 rounded-xl mb-6">
+            <div className="flex items-start gap-2 bg-[#00a67e]/10 border border-[#00a67e]/30 p-4 rounded-xl mb-6">
+              <Lightbulb size={18} className="flex-shrink-0 mt-0.5 text-[#00a67e]" />
               <p className="text-sm text-[#00a67e]">
-                💡 <strong>Tip:</strong> Edit the text content that appears on your website. 
+                <strong>Tip:</strong> Edit the text content that appears on your website.
                 Changes will be reflected immediately on the live site.
               </p>
             </div>
@@ -400,7 +402,7 @@ export default function AdminDashboard() {
             {content.map((item) => (
               <div
                 key={item.id}
-                className="bg-[#0d1117] p-6 rounded-2xl border border-[#00a67e]/20
+                className="bg-surface p-6 rounded-2xl border border-[#00a67e]/20
                          hover:border-[#00a67e]/50 transition-all"
               >
                 {editingId === item.id ? (
@@ -414,7 +416,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={(formData as Partial<ContentData>).key || ""}
                           onChange={(e) => setFormData({ ...formData, key: e.target.value })}
-                          className="w-full p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white
+                          className="w-full p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground
                                    focus:outline-none focus:border-[#00a67e]"
                           disabled
                         />
@@ -426,7 +428,7 @@ export default function AdminDashboard() {
                         <textarea
                           value={(formData as Partial<ContentData>).value || ""}
                           onChange={(e) => setFormData({ ...formData, value: e.target.value })}
-                          className="w-full p-3 rounded-lg bg-[#161b22] border border-[#00a67e]/30 text-white h-32
+                          className="w-full p-3 rounded-lg bg-surface2 border border-[#00a67e]/30 text-foreground h-32
                                    focus:outline-none focus:border-[#00a67e]"
                         />
                       </div>
@@ -440,7 +442,7 @@ export default function AdminDashboard() {
                       </button>
                       <button
                         onClick={cancelEdit}
-                        className="px-6 py-2 border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-500/10 transition-all"
+                        className="px-6 py-2 border border-foreground/30 text-foreground/80 rounded-lg hover:bg-foreground/10 transition-all"
                       >
                         Cancel
                       </button>
@@ -450,13 +452,13 @@ export default function AdminDashboard() {
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-[#00a67e] mb-2">{item.key}</h3>
-                      <p className="text-gray-300 whitespace-pre-wrap">{item.value}</p>
+                      <p className="text-foreground/80 whitespace-pre-wrap">{item.value}</p>
                     </div>
                     <button
                       onClick={() => startEdit(item)}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all ml-4"
+                      className="flex items-center gap-1.5 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all ml-4"
                     >
-                      Edit
+                      <Pencil size={16} /> Edit
                     </button>
                   </div>
                 )}
