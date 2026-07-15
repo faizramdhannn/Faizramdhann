@@ -48,8 +48,8 @@ export default function About() {
   ];
   
   return (
-    <div className="px-6 md:px-8 py-20 md:py-24">
-      <div className="max-w-6xl mx-auto space-y-24">
+    <div className="px-6 md:px-8 py-14 md:py-16">
+      <div className="max-w-6xl mx-auto space-y-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -60,10 +60,10 @@ export default function About() {
           <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
             Learn More
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             About <span className="text-primary">Me</span>
           </h1>
-          <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-foreground/60 max-w-2xl mx-auto">
             Passionate developer dedicated to creating exceptional digital experiences
           </p>
         </motion.div>
@@ -75,13 +75,13 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-surface/90 p-10 rounded-3xl border border-[#00a67e]/20 
+            className="group relative bg-surface/90 p-7 rounded-3xl border border-[#00a67e]/20 
                      hover:border-[#00a67e]/40 transition-all duration-500
                      hover:shadow-2xl hover:shadow-[#00a67e]/10"
           ><h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
               Introduction
             </h2>
-            <p className="text-lg text-foreground/70 leading-relaxed relative">
+            <p className="text-base text-foreground/70 leading-relaxed relative">
               Hello! I&apos;m <span className="text-[#00a67e] font-semibold">Faiz Ramdhan Azmalia</span>. 
               I&apos;m passionate about learning new technologies, creating useful solutions, and finding joy in every challenge. 
               For me, every project is an opportunity to make an impact and share creativity with others.
@@ -93,13 +93,13 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-surface/90 p-10 rounded-3xl border border-[#00a67e]/20 
+            className="group relative bg-surface/90 p-7 rounded-3xl border border-[#00a67e]/20 
                      hover:border-[#00a67e]/40 transition-all duration-500
                      hover:shadow-2xl hover:shadow-[#00a67e]/10"
           ><h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
               Background
             </h2>
-            <div className="space-y-5 text-lg text-foreground/70 relative">
+            <div className="space-y-5 text-base text-foreground/70 relative">
               <div className="flex items-start gap-4 group/item hover:text-foreground/90 transition-colors">
                 <MapPin className="text-[#00a67e] flex-shrink-0" size={24} />
                 <div>
@@ -134,7 +134,7 @@ export default function About() {
             <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               My Journey
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
               Experience & <span className="text-primary">Growth</span>
             </h2>
           </div>
@@ -180,12 +180,12 @@ export default function About() {
             <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               What I Know
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
               Technical <span className="text-primary">Skills</span>
             </h2>
           </div>
 
-          <div className="relative bg-surface/90 p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
+          <div className="relative bg-surface/90 p-8 md:p-7 rounded-3xl border border-[#00a67e]/20
                         shadow-2xl"><div className="relative grid gap-6">
               {skills.map((skill, index) => {
                 const Icon = categoryIcon[skill.category] ?? Code2;
@@ -203,7 +203,7 @@ export default function About() {
                         <div className="w-8 h-8 rounded-lg bg-[#00a67e]/10 border border-[#00a67e]/20 flex items-center justify-center flex-shrink-0">
                           <Icon className="text-[#00a67e]" size={16} />
                         </div>
-                        <span className="text-lg font-bold text-foreground group-hover:text-[#00a67e] transition-colors">
+                        <span className="text-base font-bold text-foreground group-hover:text-[#00a67e] transition-colors">
                           {skill.name}
                         </span>
                         <span className="text-xs text-foreground/40 font-medium px-2 py-1 rounded-full bg-foreground/5">
@@ -242,7 +242,7 @@ export default function About() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to work <span className="text-[#00a67e]">together?</span>
           </h2>
-          <p className="text-lg text-foreground/60 mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-foreground/60 mb-8 max-w-2xl mx-auto">
             Let&apos;s create something amazing. Get in touch and let&apos;s discuss your next project.
           </p>
           <motion.a

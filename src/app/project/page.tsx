@@ -63,7 +63,7 @@ export default function Project() {
   }
 
   return (
-    <div className="px-6 md:px-8 py-20 md:py-24">
+    <div className="px-6 md:px-8 py-14 md:py-16">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
         <motion.div
@@ -75,10 +75,10 @@ export default function Project() {
           <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider block">
             Portfolio
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
             My <span className="text-primary">Projects</span>
           </h1>
-          <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-foreground/60 max-w-3xl mx-auto">
             Explore my portfolio of projects showcasing my skills and experience in web development and data analysis
           </p>
         </motion.div>

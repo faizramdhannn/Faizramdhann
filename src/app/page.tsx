@@ -109,7 +109,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section id="hero" className="relative px-6 md:px-8 py-20 md:py-24">
+      <section id="hero" className="relative px-6 md:px-8 py-14 md:py-16">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
             {/* Profile Image - Kiri */}
@@ -124,7 +124,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-[#00a67e]/20 blur-3xl rounded-full scale-110" />
                 
                 {/* Image Container */}
-                <div className="relative w-[220px] h-[220px] sm:w-[250px] sm:h-[250px] lg:w-[290px] lg:h-[290px]">
+                <div className="relative w-[180px] h-[180px] sm:w-[210px] sm:h-[210px] lg:w-[240px] lg:h-[240px]">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={theme}
@@ -137,8 +137,8 @@ export default function Home() {
                       <Image
                         src={`/assets/profile-${theme === 'light' ? 'light' : 'dark'}.jpeg`}
                         alt="Faiz Ramdhan Profile"
-                        width={290}
-                        height={290}
+                        width={240}
+                        height={240}
                         className="rounded-[30px] border-4 border-[#00a67e]/30 shadow-2xl 
                                  shadow-[#00a67e]/20 hover:border-[#00a67e]/50
                                  transition-all duration-500 object-cover w-full h-full
@@ -194,7 +194,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
-                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
+                  className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight"
                 >
                   <span className="text-foreground/95">
                     {content.heroSubtitle}
@@ -204,7 +204,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
-                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary"
+                  className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary"
                 >
                   Azmalia
                 </motion.h2>
@@ -215,7 +215,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
-                className="text-lg sm:text-xl lg:text-2xl text-foreground/70 font-light"
+                className="text-base sm:text-lg lg:text-xl text-foreground/70 font-light"
               >
                 Web Developer & Creative Problem Solver
               </motion.p>
@@ -327,7 +327,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="relative px-6 md:px-8 py-20 md:py-24">
+      <section id="about" className="relative px-6 md:px-8 py-14 md:py-16">
         <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -339,7 +339,7 @@ export default function Home() {
             <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               Get To Know Me
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
               About <span className="text-primary">Me</span>
             </h2>
           </motion.div>
@@ -350,13 +350,13 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="group relative bg-surface/90 p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
+              className="group relative bg-surface/90 p-6 md:p-8 rounded-3xl border border-[#00a67e]/20 
                        hover:border-[#00a67e]/40 transition-all duration-500
                        hover:shadow-2xl hover:shadow-[#00a67e]/10"
-            ><h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
+            ><h3 className="text-xl md:text-2xl font-bold text-[#00a67e] mb-6 relative">
                 Introduction
               </h3>
-              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed relative">
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed relative">
                 {content.aboutDescription}
               </p>
             </motion.div>
@@ -366,13 +366,13 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative bg-surface/90 p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
+              className="group relative bg-surface/90 p-6 md:p-8 rounded-3xl border border-[#00a67e]/20 
                        hover:border-[#00a67e]/40 transition-all duration-500
                        hover:shadow-2xl hover:shadow-[#00a67e]/10"
-            ><h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
+            ><h3 className="text-xl md:text-2xl font-bold text-[#00a67e] mb-6 relative">
                 Background
               </h3>
-              <div className="space-y-4 text-lg md:text-xl text-foreground/70 relative">
+              <div className="space-y-4 text-base md:text-lg text-foreground/70 relative">
                 <div className="flex items-start gap-4">
                   <MapPin className="text-[#00a67e] flex-shrink-0" size={24} />
                   <div>
@@ -425,7 +425,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="relative px-6 md:px-8 py-20 md:py-24">
+      <section id="services" className="relative px-6 md:px-8 py-14 md:py-16">
         <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -437,7 +437,7 @@ export default function Home() {
             <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               What I Can Build
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
               Services & <span className="text-primary">Solutions</span>
             </h2>
             <p className="text-foreground/60 mt-4 max-w-2xl mx-auto">
@@ -492,7 +492,7 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="relative px-6 md:px-8 py-20 md:py-24">
+      <section id="skills" className="relative px-6 md:px-8 py-14 md:py-16">
         <div className="max-w-5xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -504,7 +504,7 @@ export default function Home() {
             <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               What I Work With
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
               Technical <span className="text-primary">Skills</span>
             </h2>
           </motion.div>
@@ -514,7 +514,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative bg-surface/90 p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
+            className="relative bg-surface/90 p-6 md:p-8 rounded-3xl border border-[#00a67e]/20
                      shadow-2xl"
           ><div className="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {skills.map((skill, index) => {
@@ -578,7 +578,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative px-6 md:px-8 py-20 md:py-24">
+      <section id="contact" className="relative px-6 md:px-8 py-14 md:py-16">
         <div className="max-w-4xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -590,10 +590,10 @@ export default function Home() {
             <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               Let&apos;s Connect
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6">
               Get In <span className="text-primary">Touch</span>
             </h2>
-            <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-foreground/60 max-w-2xl mx-auto">
               {content.contactDescription}
             </p>
           </motion.div>
