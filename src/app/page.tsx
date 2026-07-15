@@ -4,7 +4,11 @@ import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useTheme } from '@/components/ThemeProvider';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, MapPin, Home as HomeIcon, Briefcase, ChevronRight } from 'lucide-react';
+import {
+  Sparkles, MapPin, Home as HomeIcon, Briefcase, ChevronRight,
+  Globe, LayoutDashboard, BarChart3, Boxes, ShoppingCart, Workflow,
+  Database, Code2, Layers, Braces, Palette,
+} from 'lucide-react';
 
 interface Content {
   heroTitle: string;
@@ -80,6 +84,23 @@ export default function Home() {
     { name: 'Tailwind CSS', category: 'Styling' }
   ], []);
 
+  const categoryIcon: Record<string, typeof Code2> = {
+    Data: Database,
+    Frontend: Code2,
+    Framework: Layers,
+    Language: Braces,
+    Styling: Palette,
+  };
+
+  const services = useMemo(() => [
+    { name: 'Company Website', description: 'Profile & landing pages that represent your brand professionally.', icon: Globe },
+    { name: 'Dashboard', description: 'Internal tools and admin panels to manage data with ease.', icon: LayoutDashboard },
+    { name: 'Analytics', description: 'Reporting & data visualization to support business decisions.', icon: BarChart3 },
+    { name: 'ERP System', description: 'Custom systems to streamline operations end-to-end.', icon: Boxes },
+    { name: 'Shopify Management', description: 'Store setup, theme customization, and ongoing maintenance.', icon: ShoppingCart },
+    { name: 'Automation', description: 'Workflow automation to save time on repetitive tasks.', icon: Workflow },
+  ], []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -88,7 +109,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative px-6 md:px-8 py-20">
+      <section id="hero" className="relative px-6 md:px-8 py-20 md:py-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
             {/* Profile Image - Kiri */}
@@ -103,7 +124,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-[#00a67e]/20 blur-3xl rounded-full scale-110" />
                 
                 {/* Image Container */}
-                <div className="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px]">
+                <div className="relative w-[220px] h-[220px] sm:w-[250px] sm:h-[250px] lg:w-[290px] lg:h-[290px]">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={theme}
@@ -116,8 +137,8 @@ export default function Home() {
                       <Image
                         src={`/assets/profile-${theme === 'light' ? 'light' : 'dark'}.jpeg`}
                         alt="Faiz Ramdhan Profile"
-                        width={380}
-                        height={380}
+                        width={290}
+                        height={290}
                         className="rounded-[30px] border-4 border-[#00a67e]/30 shadow-2xl 
                                  shadow-[#00a67e]/20 hover:border-[#00a67e]/50
                                  transition-all duration-500 object-cover w-full h-full
@@ -173,9 +194,9 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight"
                 >
-                  <span className="bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent">
+                  <span className="text-foreground/95">
                     {content.heroSubtitle}
                   </span>
                 </motion.h1>
@@ -183,8 +204,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r 
-                           from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent"
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary"
                 >
                   Azmalia
                 </motion.h2>
@@ -221,7 +241,7 @@ export default function Home() {
                   onClick={() => scrollToSection('contact')}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-[#00a67e] to-[#00d9a5] 
+                  className="px-8 py-4 bg-primary 
                            text-white font-semibold rounded-xl shadow-lg shadow-[#00a67e]/30
                            hover:shadow-xl hover:shadow-[#00a67e]/40 transition-all"
                 >
@@ -292,7 +312,7 @@ export default function Home() {
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="text-xs text-[#00a67e] font-medium uppercase tracking-wider">
+            <span className="font-mono text-xs text-[#00a67e] font-medium uppercase tracking-wider">
               Scroll
             </span>
             <div className="w-5 h-8 border-2 border-[#00a67e]/30 rounded-full flex items-start justify-center p-1">
@@ -307,7 +327,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center relative px-6 md:px-8 py-32">
+      <section id="about" className="relative px-6 md:px-8 py-20 md:py-24">
         <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -316,11 +336,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               Get To Know Me
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-              About <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Me</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              About <span className="text-primary">Me</span>
             </h2>
           </motion.div>
 
@@ -330,15 +350,10 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                       backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
+              className="group relative bg-surface/90 p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
                        hover:border-[#00a67e]/40 transition-all duration-500
                        hover:shadow-2xl hover:shadow-[#00a67e]/10"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00a67e]/5 rounded-full blur-3xl 
-                            group-hover:bg-[#00a67e]/10 transition-all duration-500" />
-              
-              <h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
+            ><h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
                 Introduction
               </h3>
               <p className="text-lg md:text-xl text-foreground/70 leading-relaxed relative">
@@ -351,15 +366,10 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                       backdrop-blur-sm p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
+              className="group relative bg-surface/90 p-8 md:p-10 rounded-3xl border border-[#00a67e]/20 
                        hover:border-[#00a67e]/40 transition-all duration-500
                        hover:shadow-2xl hover:shadow-[#00a67e]/10"
-            >
-              <div className="absolute top-0 left-0 w-32 h-32 bg-[#00a67e]/5 rounded-full blur-3xl 
-                            group-hover:bg-[#00a67e]/10 transition-all duration-500" />
-              
-              <h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
+            ><h3 className="text-2xl md:text-3xl font-bold text-[#00a67e] mb-6 relative">
                 Background
               </h3>
               <div className="space-y-4 text-lg md:text-xl text-foreground/70 relative">
@@ -392,7 +402,7 @@ export default function Home() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          onClick={() => scrollToSection('skills')}
+          onClick={() => scrollToSection('services')}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer"
         >
           <motion.div
@@ -400,8 +410,8 @@ export default function Home() {
             transition={{ duration: 2, repeat: Infinity }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="text-xs text-[#00a67e] font-medium uppercase tracking-wider">
-              Skills
+            <span className="font-mono text-xs text-[#00a67e] font-medium uppercase tracking-wider">
+              Services
             </span>
             <div className="w-5 h-8 border-2 border-[#00a67e]/30 rounded-full flex items-start justify-center p-1">
               <motion.div
@@ -414,8 +424,75 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Services Section */}
+      <section id="services" className="relative px-6 md:px-8 py-20 md:py-24">
+        <div className="max-w-6xl mx-auto w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
+              What I Can Build
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              Services & <span className="text-primary">Solutions</span>
+            </h2>
+            <p className="text-foreground/60 mt-4 max-w-2xl mx-auto">
+              Beyond portfolio sites — I build practical tools businesses actually use.
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                whileHover={{ y: -4 }}
+                className="group bg-surface/90 p-6 rounded-2xl border border-[#00a67e]/20
+                         hover:border-[#00a67e]/40 transition-all duration-300
+                         hover:shadow-lg hover:shadow-[#00a67e]/10"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#00a67e]/10 border border-[#00a67e]/25
+                             flex items-center justify-center mb-4
+                             group-hover:bg-[#00a67e]/15 transition-colors">
+                  <service.icon className="text-[#00a67e]" size={22} />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-1.5">{service.name}</h3>
+                <p className="text-sm text-foreground/60 leading-relaxed">{service.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          onClick={() => scrollToSection('skills')}
+          className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 cursor-pointer"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center gap-2"
+          >
+            <span className="font-mono text-xs text-[#00a67e] font-medium uppercase tracking-wider">
+              Skills
+            </span>
+          </motion.div>
+        </motion.div>
+      </section>
+
       {/* Skills Section */}
-      <section id="skills" className="min-h-screen flex items-center relative px-6 md:px-8 py-32">
+      <section id="skills" className="relative px-6 md:px-8 py-20 md:py-24">
         <div className="max-w-5xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -424,11 +501,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               What I Work With
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-              Technical <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Skills</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              Technical <span className="text-primary">Skills</span>
             </h2>
           </motion.div>
 
@@ -437,38 +514,37 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                     backdrop-blur-sm p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
+            className="relative bg-surface/90 p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
                      shadow-2xl"
-          >
-            <div className="absolute inset-0 bg-[#00a67e]/5 rounded-3xl blur-3xl" />
-            
-            <div className="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="group relative bg-gradient-to-br from-[#00a67e]/10 to-[#00a67e]/5 
-                           p-6 rounded-2xl border-2 border-[#00a67e]/30 
-                           hover:border-[#00a67e] hover:bg-[#00a67e]/15
-                           transition-all duration-300 cursor-pointer
-                           hover:shadow-lg hover:shadow-[#00a67e]/20"
-                >
-                  <div className="text-center space-y-2">
-                    <p className="text-base md:text-lg font-bold text-[#00a67e] 
-                               group-hover:scale-110 transition-transform">
-                      {skill.name}
-                    </p>
-                    <p className="text-xs text-foreground/50 font-medium">
-                      {skill.category}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+          ><div className="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {skills.map((skill, index) => {
+                const Icon = categoryIcon[skill.category] ?? Code2;
+                return (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="group relative bg-[#00a67e]/[0.07]
+                             p-6 rounded-2xl border border-[#00a67e]/30
+                             hover:border-[#00a67e] hover:bg-[#00a67e]/15
+                             transition-all duration-300 cursor-pointer
+                             hover:shadow-lg hover:shadow-[#00a67e]/20"
+                  >
+                    <div className="text-center space-y-2">
+                      <Icon className="mx-auto text-[#00a67e] group-hover:scale-110 transition-transform" size={22} />
+                      <p className="text-base md:text-lg font-bold text-[#00a67e]">
+                        {skill.name}
+                      </p>
+                      <p className="text-xs text-foreground/50 font-medium">
+                        {skill.category}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
@@ -487,7 +563,7 @@ export default function Home() {
             transition={{ duration: 2, repeat: Infinity }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="text-xs text-[#00a67e] font-medium uppercase tracking-wider">
+            <span className="font-mono text-xs text-[#00a67e] font-medium uppercase tracking-wider">
               Contact
             </span>
             <div className="w-5 h-8 border-2 border-[#00a67e]/30 rounded-full flex items-start justify-center p-1">
@@ -502,7 +578,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center px-6 md:px-8 py-32">
+      <section id="contact" className="relative px-6 md:px-8 py-20 md:py-24">
         <div className="max-w-4xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -511,11 +587,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               Let&apos;s Connect
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Get In <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Touch</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Get In <span className="text-primary">Touch</span>
             </h2>
             <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto">
               {content.contactDescription}
@@ -535,15 +611,10 @@ export default function Home() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ scale: 1.03, y: -5 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                         backdrop-blur-sm p-8 rounded-3xl border border-[#00a67e]/20 
+                className="group relative bg-surface/90 p-8 rounded-3xl border border-[#00a67e]/20 
                          hover:border-[#00a67e]/40 transition-all duration-300
                          hover:shadow-2xl hover:shadow-[#00a67e]/20"
-              >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#00a67e]/5 rounded-full blur-2xl 
-                              group-hover:bg-[#00a67e]/10 transition-all" />
-                
-                <div className="relative flex items-center gap-6">
+              ><div className="relative flex items-center gap-6">
                   <div className="w-16 h-16 rounded-2xl border border-[#00a67e]/30 bg-[#00a67e]/5
                                flex items-center justify-center flex-shrink-0
                                group-hover:border-[#00a67e] group-hover:bg-[#00a67e]/10 

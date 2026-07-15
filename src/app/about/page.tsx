@@ -1,7 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MapPin, Home as HomeIcon, Briefcase, Code2, BookOpen, Rocket, ArrowRight, Mail } from 'lucide-react';
+import {
+  MapPin, Home as HomeIcon, Briefcase, Code2, BookOpen, Rocket, ArrowRight, Mail,
+  Database, Layers, Braces, Palette,
+} from 'lucide-react';
 
 export default function About() {
   const skills = [
@@ -14,6 +17,14 @@ export default function About() {
     { name: 'TypeScript', level: 83, category: 'Language' },
     { name: 'Tailwind CSS', level: 93, category: 'Styling' }
   ];
+
+  const categoryIcon: Record<string, typeof Code2> = {
+    Data: Database,
+    Frontend: Code2,
+    Framework: Layers,
+    Language: Braces,
+    Styling: Palette,
+  };
 
   const experiences = [
     {
@@ -37,7 +48,7 @@ export default function About() {
   ];
   
   return (
-    <div className="min-h-screen px-6 md:px-8 py-32">
+    <div className="px-6 md:px-8 py-20 md:py-24">
       <div className="max-w-6xl mx-auto space-y-24">
         {/* Header */}
         <motion.div
@@ -46,11 +57,11 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
+          <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
             Learn More
           </span>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-            About <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Me</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            About <span className="text-primary">Me</span>
           </h1>
           <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto">
             Passionate developer dedicated to creating exceptional digital experiences
@@ -64,15 +75,10 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                     backdrop-blur-sm p-10 rounded-3xl border border-[#00a67e]/20 
+            className="group relative bg-surface/90 p-10 rounded-3xl border border-[#00a67e]/20 
                      hover:border-[#00a67e]/40 transition-all duration-500
                      hover:shadow-2xl hover:shadow-[#00a67e]/10"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#00a67e]/5 rounded-full blur-3xl 
-                          group-hover:bg-[#00a67e]/10 transition-all duration-500" />
-            
-            <h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
+          ><h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
               Introduction
             </h2>
             <p className="text-lg text-foreground/70 leading-relaxed relative">
@@ -87,15 +93,10 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                     backdrop-blur-sm p-10 rounded-3xl border border-[#00a67e]/20 
+            className="group relative bg-surface/90 p-10 rounded-3xl border border-[#00a67e]/20 
                      hover:border-[#00a67e]/40 transition-all duration-500
                      hover:shadow-2xl hover:shadow-[#00a67e]/10"
-          >
-            <div className="absolute top-0 left-0 w-32 h-32 bg-[#00a67e]/5 rounded-full blur-3xl 
-                          group-hover:bg-[#00a67e]/10 transition-all duration-500" />
-            
-            <h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
+          ><h2 className="text-3xl font-bold text-[#00a67e] mb-6 relative">
               Background
             </h2>
             <div className="space-y-5 text-lg text-foreground/70 relative">
@@ -130,11 +131,11 @@ export default function About() {
           className="space-y-8"
         >
           <div className="text-center">
-            <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               My Journey
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-              Experience & <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Growth</span>
+              Experience & <span className="text-primary">Growth</span>
             </h2>
           </div>
 
@@ -147,15 +148,10 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="group relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                         backdrop-blur-sm p-8 rounded-3xl border border-[#00a67e]/20 
+                className="group relative bg-surface/90 p-8 rounded-3xl border border-[#00a67e]/20 
                          hover:border-[#00a67e]/40 transition-all duration-300
                          hover:shadow-2xl hover:shadow-[#00a67e]/10"
-              >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#00a67e]/5 rounded-full blur-2xl 
-                              group-hover:bg-[#00a67e]/10 transition-all" />
-                
-                <div className="relative space-y-4">
+              ><div className="relative space-y-4">
                   <exp.icon className="text-[#00a67e]" size={32} />
                   <div>
                     <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-[#00a67e] transition-colors">
@@ -181,57 +177,56 @@ export default function About() {
           className="space-y-8"
         >
           <div className="text-center">
-            <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider mb-4 block">
+            <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider mb-4 block">
               What I Know
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-              Technical <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Skills</span>
+              Technical <span className="text-primary">Skills</span>
             </h2>
           </div>
 
-          <div className="relative bg-gradient-to-br from-surface/80 to-surface2/80 
-                        backdrop-blur-sm p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
-                        shadow-2xl">
-            <div className="absolute inset-0 bg-[#00a67e]/5 rounded-3xl blur-3xl" />
-            
-            <div className="relative grid gap-6">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="group"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-foreground group-hover:text-[#00a67e] transition-colors">
-                        {skill.name}
-                      </span>
-                      <span className="text-xs text-foreground/40 font-medium px-2 py-1 rounded-full bg-foreground/5">
-                        {skill.category}
+          <div className="relative bg-surface/90 p-10 md:p-14 rounded-3xl border border-[#00a67e]/20
+                        shadow-2xl"><div className="relative grid gap-6">
+              {skills.map((skill, index) => {
+                const Icon = categoryIcon[skill.category] ?? Code2;
+                return (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    className="group"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#00a67e]/10 border border-[#00a67e]/20 flex items-center justify-center flex-shrink-0">
+                          <Icon className="text-[#00a67e]" size={16} />
+                        </div>
+                        <span className="text-lg font-bold text-foreground group-hover:text-[#00a67e] transition-colors">
+                          {skill.name}
+                        </span>
+                        <span className="text-xs text-foreground/40 font-medium px-2 py-1 rounded-full bg-foreground/5">
+                          {skill.category}
+                        </span>
+                      </div>
+                      <span className="text-sm font-semibold text-[#00a67e]">
+                        {skill.level}%
                       </span>
                     </div>
-                    <span className="text-sm font-semibold text-[#00a67e]">
-                      {skill.level}%
-                    </span>
-                  </div>
-                  
-                  <div className="h-2 bg-foreground/5 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.05, ease: 'easeOut' }}
-                      className="h-full bg-gradient-to-r from-[#00a67e] to-[#00d9a5] rounded-full
-                               relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-foreground/20 animate-pulse" />
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
+
+                    <div className="h-2 bg-foreground/5 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: index * 0.05, ease: 'easeOut' }}
+                        className="h-full bg-primary rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </motion.div>
@@ -254,7 +249,7 @@ export default function About() {
             href="mailto:faizramdhan17@gmail.com"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#00a67e] to-[#00d9a5] 
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary 
                      text-white font-semibold rounded-xl shadow-lg shadow-[#00a67e]/30
                      hover:shadow-xl hover:shadow-[#00a67e]/40 transition-all"
           >

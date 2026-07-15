@@ -41,8 +41,8 @@ export async function GET() {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const rows = await readSheetData(spreadsheetId, 'Projects!A2:G');
-    
+    const rows = await readSheetData(spreadsheetId, 'Projects!B2:H');
+
     const projects = rows.map((row, index) => ({
       id: index + 1,
       name: row[0] || '',

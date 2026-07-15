@@ -51,7 +51,7 @@ export default function Header() {
             className="relative"
           >
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-              <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">
+              <span className="text-primary">
                 Faiz
               </span>
               <span className="text-foreground/90 ml-1">Ramdhan</span>

@@ -31,7 +31,7 @@ export default function Footer() {
             className="text-center space-y-3"
           >
             <h3 className="text-2xl md:text-3xl font-bold">
-              <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">
+              <span className="text-primary">
                 Faiz Ramdhan
               </span>
             </h3>

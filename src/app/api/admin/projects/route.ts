@@ -8,7 +8,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const rows = await readSheetData(spreadsheetId, 'Projects!A2:G');
+    const rows = await readSheetData(spreadsheetId, 'Projects!B2:H');
     
     const projects = rows.map((row, index) => ({
       id: index + 2,
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     const newRow = [[name, category, description, technologies, image, link, 'active']];
-    await appendSheetData(spreadsheetId, 'Projects!A:G', newRow);
+    await appendSheetData(spreadsheetId, 'Projects!B:H', newRow);
 
     return NextResponse.json({ success: true, message: 'Project added successfully' });
   } catch (error) {
@@ -58,7 +58,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const range = `Projects!A${id}:G${id}`;
+    const range = `Projects!B${id}:H${id}`;
     const values = [[name, category, description, technologies, image, link, status]];
     
     await writeSheetData(spreadsheetId, range, values);
@@ -84,7 +84,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const range = `Projects!G${id}`;
+    const range = `Projects!H${id}`;
     await writeSheetData(spreadsheetId, range, [['deleted']]);
 
     return NextResponse.json({ success: true, message: 'Project deleted successfully' });

@@ -63,7 +63,7 @@ export default function Project() {
   }
 
   return (
-    <div className="min-h-screen px-6 md:px-8 py-32">
+    <div className="px-6 md:px-8 py-20 md:py-24">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
         <motion.div
@@ -72,11 +72,11 @@ export default function Project() {
           transition={{ duration: 0.6 }}
           className="text-center space-y-6"
         >
-          <span className="text-[#00a67e] text-sm font-semibold uppercase tracking-wider block">
+          <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider block">
             Portfolio
           </span>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold">
-            My <span className="bg-gradient-to-r from-[#00a67e] to-[#00d9a5] bg-clip-text text-transparent">Projects</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            My <span className="text-primary">Projects</span>
           </h1>
           <p className="text-lg md:text-xl text-foreground/60 max-w-3xl mx-auto">
             Explore my portfolio of projects showcasing my skills and experience in web development and data analysis
@@ -121,7 +121,7 @@ export default function Project() {
                 whileTap={{ scale: 0.95 }}
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                   activeFilter === category
-                    ? 'bg-gradient-to-r from-[#00a67e] to-[#00d9a5] text-white shadow-lg shadow-[#00a67e]/30'
+                    ? 'bg-primary text-white shadow-lg shadow-[#00a67e]/30'
                     : 'bg-surface/80 border-2 border-[#00a67e]/20 text-foreground/70 hover:border-[#00a67e]/40 hover:text-foreground'
                 }`}
               >

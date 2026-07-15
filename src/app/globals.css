@@ -13,14 +13,14 @@
 
     /* Theme-aware color tokens (used via Tailwind's foreground/surface/surface2) */
     --fg-rgb: 255 255 255;
-    --surface-rgb: 13 17 23;
-    --surface2-rgb: 22 27 34;
+    --surface-rgb: 15 21 36;
+    --surface2-rgb: 22 30 48;
   }
 
   html.light {
     --fg-rgb: 15 23 42;
     --surface-rgb: 255 255 255;
-    --surface2-rgb: 244 250 248;
+    --surface2-rgb: 246 249 248;
   }
 
   * {
@@ -33,12 +33,7 @@
 
   body {
     @apply min-h-screen overflow-x-hidden antialiased;
-    background: radial-gradient(
-      ellipse at top,
-      #001a2e 0%,
-      #000814 40%,
-      #000000 100%
-    );
+    background: #0b1120;
     background-attachment: fixed;
     color: var(--text-dark);
     position: relative;
@@ -47,28 +42,19 @@
   body::before {
     content: '';
     @apply fixed inset-0 pointer-events-none z-0;
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(0, 166, 126, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(0, 217, 165, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(0, 166, 126, 0.03) 0%, transparent 50%);
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(0, 166, 126, 0.06) 0%, transparent 55%);
   }
 
   html.light body {
-    background: radial-gradient(
-      ellipse at top,
-      #e8f5f1 0%,
-      #f0f9f6 40%,
-      #ffffff 100%
-    );
+    background: #f7faf9;
     background-attachment: fixed;
     color: var(--text-light);
   }
 
   html.light body::before {
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(0, 166, 126, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(0, 217, 165, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(0, 166, 126, 0.05) 0%, transparent 50%);
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(0, 166, 126, 0.06) 0%, transparent 55%);
   }
 }
 

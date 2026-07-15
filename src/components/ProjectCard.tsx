@@ -21,19 +21,15 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
       whileHover={{ y: -8 }}
-      className="group relative bg-gradient-to-br from-surface/90 to-surface2/90 
-               backdrop-blur-sm rounded-3xl border border-[#00a67e]/20 
+      className="group relative bg-surface/95
+               rounded-3xl border border-[#00a67e]/20
                hover:border-[#00a67e]/50 transition-all duration-500
                overflow-hidden h-full flex flex-col
                hover:shadow-2xl hover:shadow-[#00a67e]/20"
     >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#00a67e]/5 via-transparent to-transparent 
+      {/* Tint Overlay */}
+      <div className="absolute inset-0 bg-[#00a67e]/5
                     opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      
-      {/* Glow Effect */}
-      <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#00a67e]/10 rounded-full blur-3xl 
-                    opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Image Container */}
       <div className="relative w-full h-56 overflow-hidden rounded-t-3xl">
