@@ -3,109 +3,99 @@
 import Image from 'next/image';
 import type { Project } from '@/types/project';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowRight, Globe, LayoutDashboard, BarChart3, Boxes, ShoppingCart, Workflow, Code2,
+} from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
   index?: number;
 }
 
+const CATEGORY_ICON: Record<string, typeof Code2> = {
+  'E-commerce': ShoppingCart,
+  Dashboard: LayoutDashboard,
+  POS: ShoppingCart,
+  Logic: Workflow,
+  Service: Globe,
+  'ERP System': Boxes,
+  Analytics: BarChart3,
+};
+
+// Older sheet rows still point at this removed placeholder file; treat it as "no image".
+const LEGACY_PLACEHOLDER = '/assets/profile.jpeg';
+
 export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
-  const technologies = Array.isArray(project.technologies) 
-    ? project.technologies 
+  const technologies = Array.isArray(project.technologies)
+    ? project.technologies
     : project.technologies.split(',').map(t => t.trim());
+
+  const hasImage = Boolean(project.image) && project.image !== LEGACY_PLACEHOLDER;
+  const CategoryIcon = CATEGORY_ICON[project.category] ?? Code2;
 
   const CardContent = (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      whileHover={{ y: -8 }}
-      className="group relative bg-surface/95
-               rounded-3xl border border-[#00a67e]/20
-               hover:border-[#00a67e]/50 transition-all duration-500
-               overflow-hidden h-full flex flex-col
-               hover:shadow-2xl hover:shadow-[#00a67e]/20"
+      transition={{ duration: 0.35, delay: index * 0.06 }}
+      whileHover={{ y: -6 }}
+      className="group liquid-glass rounded-3xl overflow-hidden h-full flex flex-col"
     >
-      {/* Tint Overlay */}
-      <div className="absolute inset-0 bg-[#00a67e]/5
-                    opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-      {/* Image Container */}
-      <div className="relative w-full h-56 overflow-hidden rounded-t-3xl">
-        <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent z-10" />
-        <Image
-          src={project.image}
-          alt={project.name}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        
-        {/* Category Badge */}
-        <div className="absolute top-4 right-4 z-20">
-          <span className="px-4 py-2 bg-[#00a67e]/90 backdrop-blur-sm text-white text-xs font-bold 
-                       rounded-xl shadow-lg border border-foreground/10">
+      <div className="relative w-full h-52 overflow-hidden">
+        {hasImage ? (
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent
+                        flex items-center justify-center">
+            <CategoryIcon className="text-primary/40 group-hover:text-primary/60 transition-colors" size={44} />
+          </div>
+        )}
+        <div className="absolute top-3.5 right-3.5">
+          <span className="px-3.5 py-1.5 bg-primary/90 backdrop-blur-sm text-white text-xs font-bold rounded-xl">
             {project.category}
           </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative flex-1 flex flex-col p-6 space-y-4">
-        {/* Title */}
-        <h3 className="text-2xl font-bold text-foreground group-hover:text-[#00a67e] 
-                     transition-colors duration-300 line-clamp-2">
+      <div className="flex-1 flex flex-col p-5 space-y-3">
+        <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
           {project.name}
         </h3>
 
-        {/* Description */}
-        <p className="text-sm text-foreground/60 group-hover:text-foreground/80 
-                    transition-colors duration-300 line-clamp-3 flex-1">
-          {project.description}
-        </p>
+        <p className="text-sm text-foreground/55 line-clamp-3 flex-1">{project.description}</p>
 
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div className="flex flex-wrap gap-1.5 pt-1">
           {technologies.slice(0, 4).map((tech, idx) => (
-            <span
-              key={idx}
-              className="px-3 py-1.5 bg-[#00a67e]/10 border border-[#00a67e]/20 
-                       text-[#00a67e] text-xs font-semibold rounded-lg
-                       group-hover:bg-[#00a67e]/20 group-hover:border-[#00a67e]/40 
-                       transition-all duration-300"
-            >
+            <span key={idx} className="px-2.5 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-lg">
               {tech}
             </span>
           ))}
           {technologies.length > 4 && (
-            <span className="px-3 py-1.5 bg-foreground/5 text-foreground/40 text-xs font-semibold rounded-lg">
+            <span className="px-2.5 py-1 bg-foreground/5 text-foreground/40 text-xs font-semibold rounded-lg">
               +{technologies.length - 4}
             </span>
           )}
         </div>
 
-        {/* View Project Link */}
         {project.link && (
-          <div className="pt-4 border-t border-foreground/5">
-            <div className="flex items-center justify-between text-[#00a67e] 
-                          group-hover:text-[#00d9a5] transition-colors">
-              <span className="text-sm font-semibold">View Project</span>
-              <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-2" />
-            </div>
+          <div className="pt-3 border-t border-foreground/5 flex items-center justify-between text-primary">
+            <span className="text-sm font-semibold">View Project</span>
+            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
           </div>
         )}
       </div>
-
-      {/* Corner Accent */}
-      <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-br from-[#00a67e]/10 to-transparent 
-                    rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </motion.div>
   );
 
   return project.link ? (
-    <a 
-      href={project.link} 
-      target="_blank" 
+    <a
+      href={project.link}
+      target="_blank"
       rel="noopener noreferrer"
       className="block h-full"
     >

@@ -1,14 +1,20 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import ProjectCard from '@/components/ProjectCard';
 import type { Project } from '@/types/project';
 import { motion } from 'framer-motion';
 import { Search, SearchX } from 'lucide-react';
+import { useHoldSlide } from '@/lib/useHoldSlide';
 
-export default function Project() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState('All');
+function ProjectsView() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
+  const [activeFilter, setActiveFilter] = useState(searchParams.get('category') ?? 'All');
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,10 +35,25 @@ export default function Project() {
     fetchProjects();
   }, []);
 
+  // Keep the URL in sync so filters are shareable / bookmarkable.
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set('q', searchQuery);
+    if (activeFilter !== 'All') params.set('category', activeFilter);
+
+    const query = params.toString();
+    if (query === searchParams.toString()) return;
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }, [searchQuery, activeFilter, pathname, router, searchParams]);
+
   const categories = useMemo(() => {
     const cats = new Set(projects.map(p => p.category));
     return ['All', ...Array.from(cats)];
   }, [projects]);
+
+  const { containerRef: filterRef, activeKey: draggedFilter, containerHandlers: filterHandlers } =
+    useHoldSlide<string>({ commitOn: 'move', onSelect: setActiveFilter });
+  const highlightedFilter = draggedFilter ?? activeFilter;
 
   const filteredProjects = useMemo(() => {
     return projects.filter(project => {
@@ -56,7 +77,7 @@ export default function Project() {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-16 h-16 border-4 border-[#00a67e]/20 border-t-[#00a67e] rounded-full"
+          className="w-14 h-14 border-4 border-primary/20 border-t-primary rounded-full"
         />
       </div>
     );
@@ -67,62 +88,59 @@ export default function Project() {
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-6"
+          transition={{ duration: 0.5 }}
+          className="text-center space-y-4"
         >
-          <span className="text-[#00a67e] font-mono text-sm font-medium uppercase tracking-wider block">
+          <span className="text-primary font-mono text-xs font-medium uppercase tracking-wider block">
             Portfolio
           </span>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
             My <span className="text-primary">Projects</span>
           </h1>
-          <p className="text-base md:text-lg text-foreground/60 max-w-3xl mx-auto">
+          <p className="text-base text-foreground/55 max-w-2xl mx-auto">
             Explore my portfolio of projects showcasing my skills and experience in web development and data analysis
           </p>
         </motion.div>
 
         {/* Search & Filter */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="space-y-6"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="space-y-5"
         >
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-xl mx-auto">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search projects by name, description, or technology..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 pl-14 bg-surface/80 backdrop-blur-sm
-                         border-2 border-[#00a67e]/20 rounded-2xl text-foreground
-                         placeholder:text-foreground/40 focus:outline-none focus:border-[#00a67e]/50
-                         hover:border-[#00a67e]/30 transition-all duration-300
-                         shadow-lg shadow-black/20"
+                className="w-full px-5 py-3.5 pl-12 liquid-glass-pill text-foreground
+                         placeholder:text-foreground/40 focus:outline-none"
               />
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[#00a67e]/50" size={20} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/50" size={18} />
             </div>
           </div>
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((category, index) => (
+          <div
+            ref={filterRef}
+            {...filterHandlers}
+            className="flex flex-wrap gap-2.5 justify-center select-none"
+          >
+            {categories.map((category) => (
               <motion.button
                 key={category}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
+                data-slide-key={category}
                 onClick={() => setActiveFilter(category)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  activeFilter === category
-                    ? 'bg-primary text-white shadow-lg shadow-[#00a67e]/30'
-                    : 'bg-surface/80 border-2 border-[#00a67e]/20 text-foreground/70 hover:border-[#00a67e]/40 hover:text-foreground'
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-colors ${
+                  highlightedFilter === category
+                    ? 'bg-primary text-white'
+                    : 'liquid-glass text-foreground/65 hover:text-foreground'
                 }`}
               >
                 {category}
@@ -131,58 +149,49 @@ export default function Project() {
           </div>
         </motion.div>
 
-        {/* Project Count */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center"
-        >
-          <p className="text-foreground/50 text-sm">
-            Showing <span className="text-[#00a67e] font-semibold">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? 's' : ''}
-          </p>
-        </motion.div>
+        <p className="text-center text-foreground/45 text-sm">
+          Showing <span className="text-primary font-semibold">{filteredProjects.length}</span> project{filteredProjects.length !== 1 ? 's' : ''}
+        </p>
 
         {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
-          </motion.div>
+          </div>
         ) : (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center py-20"
+            transition={{ duration: 0.5 }}
+            className="liquid-glass rounded-3xl text-center py-16 px-6 max-w-md mx-auto space-y-4"
           >
-            <div className="max-w-md mx-auto space-y-4">
-              <SearchX className="mx-auto mb-4 text-[#00a67e]/60" size={56} />
-              <h3 className="text-2xl font-bold text-foreground mb-2">No Projects Found</h3>
-              <p className="text-foreground/60">
-                Try adjusting your search or filter criteria to find what you&apos;re looking for.
-              </p>
-              <button
-                onClick={() => {
-                  setSearchQuery('');
-                  setActiveFilter('All');
-                }}
-                className="mt-6 px-6 py-3 bg-[#00a67e]/10 border-2 border-[#00a67e]/30 
-                         text-[#00a67e] font-semibold rounded-xl hover:bg-[#00a67e]/20 
-                         hover:border-[#00a67e]/50 transition-all"
-              >
-                Clear Filters
-              </button>
-            </div>
+            <SearchX className="mx-auto text-primary/60" size={48} />
+            <h3 className="text-xl font-bold text-foreground">No Projects Found</h3>
+            <p className="text-foreground/55 text-sm">
+              Try adjusting your search or filter criteria to find what you&apos;re looking for.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setActiveFilter('All');
+              }}
+              className="mt-2 px-5 py-2.5 bg-primary/10 text-primary font-semibold rounded-full hover:bg-primary/20 transition-colors"
+            >
+              Clear Filters
+            </button>
           </motion.div>
         )}
       </div>
     </div>
+  );
+}
+
+export default function Project() {
+  return (
+    <Suspense fallback={null}>
+      <ProjectsView />
+    </Suspense>
   );
 }

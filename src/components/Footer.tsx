@@ -1,114 +1,58 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useTheme } from './ThemeProvider';
+import { Clock } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, InstagramIcon, EmailIcon } from './icons';
+import { useLocalClock } from '@/lib/useLocalClock';
+
+const SOCIAL_LINKS = [
+  { href: 'https://github.com/faizramdhannn', Icon: GithubIcon, alt: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/faiz-ramdhan-8b1a22389/', Icon: LinkedinIcon, alt: 'LinkedIn' },
+  { href: 'https://instagram.com/faizmalia', Icon: InstagramIcon, alt: 'Instagram' },
+  { href: 'mailto:faizramdhan17@gmail.com', Icon: EmailIcon, alt: 'Email' },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { theme } = useTheme();
-
-  const socialLinks = [
-    { href: 'https://github.com/faizramdhannn', icon: 'github', alt: 'GitHub' },
-    { href: 'https://www.linkedin.com/in/faiz-ramdhan-8b1a22389/', icon: 'linkedin', alt: 'LinkedIn' },
-    { href: 'https://instagram.com/faizmalia', icon: 'instagram', alt: 'Instagram' },
-    { href: 'mailto:faizramdhan17@gmail.com', icon: 'email', alt: 'Email' },
-  ];
+  const localTime = useLocalClock();
 
   return (
-    <footer className="relative mt-auto border-t border-[#00a67e]/10">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00a67e]/5 to-[#00a67e]/10 pointer-events-none" />
-      
-      <div className="relative max-w-7xl mx-auto px-6 md:px-8 py-12">
-        <div className="flex flex-col items-center gap-8">
-          {/* Logo & Tagline */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center space-y-3"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold">
-              <span className="text-primary">
-                Faiz Ramdhan
-              </span>
-            </h3>
-            <p className="text-sm md:text-base text-foreground/60 max-w-md">
-              Crafting digital experiences with passion and precision
+    <footer className="mt-auto px-4 pb-4">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="max-w-5xl mx-auto liquid-glass rounded-3xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-5"
+      >
+        <div className="text-center sm:text-left space-y-1">
+          <p className="text-sm text-foreground/50">
+            &copy; {currentYear} <span className="text-primary font-medium">Faiz Ramdhan Azmalia</span>
+          </p>
+          {localTime && (
+            <p className="text-xs text-foreground/35 flex items-center gap-1.5 justify-center sm:justify-start">
+              <Clock size={12} className="text-primary/60" />
+              {localTime} WIB &middot; Bandung, Indonesia
             </p>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex items-center gap-4"
-          >
-            {socialLinks.map((social, index) => (
-              <motion.a
-                key={social.alt}
-                href={social.href}
-                target={social.href.startsWith('mailto') ? undefined : '_blank'}
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
-                whileHover={{ scale: 1.1, y: -3 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-11 h-11 rounded-xl border border-[#00a67e]/20 bg-[#00a67e]/5
-                         hover:border-[#00a67e]/40 hover:bg-[#00a67e]/10
-                         flex items-center justify-center transition-all duration-300
-                         hover:shadow-lg hover:shadow-[#00a67e]/20"
-              >
-                <Image
-                  src={`/assets/${social.icon}-${theme === 'light' ? 'light' : 'dark'}.png`}
-                  alt={social.alt}
-                  width={20}
-                  height={20}
-                  className="opacity-80 hover:opacity-100 transition-opacity"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = `/assets/${social.icon}.png`;
-                  }}
-                />
-              </motion.a>
-            ))}
-          </motion.div>
-
-          {/* Divider */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-[#00a67e]/30 to-transparent"
-          />
-
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center space-y-2"
-          >
-            <p className="text-sm text-foreground/50">
-              &copy; {currentYear} <span className="text-[#00a67e]">Faiz Ramdhan Azmalia</span>. All rights reserved.
-            </p>
-            <p className="text-xs text-foreground/40">
-              Built with Next.js & Tailwind CSS
-            </p>
-          </motion.div>
+          )}
         </div>
-      </div>
 
-      {/* Bottom Accent Line */}
-      <div className="h-1 bg-gradient-to-r from-transparent via-[#00a67e] to-transparent opacity-30" />
+        <div className="flex items-center gap-2">
+          {SOCIAL_LINKS.map((social) => (
+            <a
+              key={social.alt}
+              href={social.href}
+              target={social.href.startsWith('mailto') ? undefined : '_blank'}
+              rel="noopener noreferrer"
+              aria-label={social.alt}
+              className="w-9 h-9 rounded-full flex items-center justify-center text-foreground/60
+                       hover:text-primary hover:bg-primary/10 transition-colors"
+            >
+              <social.Icon size={17} />
+            </a>
+          ))}
+        </div>
+      </motion.div>
     </footer>
   );
 }

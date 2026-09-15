@@ -49,10 +49,10 @@ export async function GET() {
       category: row[1] || '',
       description: row[2] || '',
       technologies: row[3] ? row[3].split(',').map((t: string) => t.trim()) : [],
-      image: row[4] || '/assets/profile.jpeg',
+      image: row[4] || '',
       link: row[5] || '',
       status: row[6] || 'active',
-    })).filter(p => p.status === 'active');
+    })).filter(p => p.status === 'active').reverse(); // newest (last added) first
 
     // Update cache
     cache.data = projects;
