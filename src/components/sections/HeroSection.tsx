@@ -68,7 +68,7 @@ export default function HeroSection({ content }: { content: Content }) {
                     </motion.div>
                   </div>
                 ) : (
-                  <div key="sitting" className="absolute top-[-68px] sm:top-[-78px] left-1/2 -translate-x-1/2 w-[190px] sm:w-[215px] drop-shadow-2xl">
+                  <div key="sitting" className="absolute top-[-28px] sm:top-[-30px] left-1/2 -translate-x-1/2 w-[190px] sm:w-[215px] drop-shadow-2xl">
                     <motion.div
                       initial={{ opacity: 0, y: -110 }}
                       animate={{ opacity: 1, y: 0 }}
