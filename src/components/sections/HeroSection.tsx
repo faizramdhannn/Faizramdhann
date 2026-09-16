@@ -92,9 +92,8 @@ export default function HeroSection({ content }: { content: Content }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
-                className={`absolute liquid-glass-pill text-primary px-4 py-2 text-xs font-semibold
-                          flex items-center gap-1.5 z-10
-                          ${theme === 'light' ? 'top-2 left-2' : 'bottom-2 right-2'}`}
+                className="absolute bottom-2 right-2 liquid-glass-pill text-primary px-4 py-2 text-xs font-semibold
+                         flex items-center gap-1.5 z-10"
               >
                 <Sparkles size={13} /> Available for work
               </motion.div>

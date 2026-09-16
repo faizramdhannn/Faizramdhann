@@ -2,28 +2,30 @@
 
 import { motion } from 'framer-motion';
 import {
-  MapPin, Home as HomeIcon, Briefcase, Code2, ArrowRight, Mail,
-  Database, Layers, Braces, Palette, ShoppingCart, BarChart3, GraduationCap,
+  MapPin, Home as HomeIcon, Briefcase, ArrowRight, Mail, ShoppingCart, BarChart3, GraduationCap,
 } from 'lucide-react';
+import {
+  SiHtml5, SiCss, SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiTailwindcss,
+  SiNodedotjs, SiGit, SiGithub, SiPostgresql, SiGooglesheets, SiFramer, SiVercel,
+} from 'react-icons/si';
 
+// Same stack shown on the home page's Technical Skills marquee.
 const SKILLS = [
-  { name: 'Spreadsheet', level: 90, category: 'Data' },
-  { name: 'HTML', level: 95, category: 'Frontend' },
-  { name: 'CSS', level: 92, category: 'Frontend' },
-  { name: 'JavaScript', level: 88, category: 'Frontend' },
-  { name: 'Next.js', level: 85, category: 'Framework' },
-  { name: 'React', level: 87, category: 'Framework' },
-  { name: 'TypeScript', level: 83, category: 'Language' },
-  { name: 'Tailwind CSS', level: 93, category: 'Styling' },
+  { name: 'HTML5', level: 95, category: 'Frontend', Icon: SiHtml5, color: '#E34F26' },
+  { name: 'CSS3', level: 92, category: 'Frontend', Icon: SiCss, color: '#1572B6' },
+  { name: 'JavaScript', level: 88, category: 'Frontend', Icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'TypeScript', level: 83, category: 'Language', Icon: SiTypescript, color: '#3178C6' },
+  { name: 'React', level: 87, category: 'Framework', Icon: SiReact, color: '#61DAFB' },
+  { name: 'Next.js', level: 85, category: 'Framework', Icon: SiNextdotjs, color: 'currentColor' },
+  { name: 'Tailwind CSS', level: 93, category: 'Styling', Icon: SiTailwindcss, color: '#38BDF8' },
+  { name: 'Node.js', level: 78, category: 'Runtime', Icon: SiNodedotjs, color: '#339933' },
+  { name: 'Git', level: 86, category: 'Tooling', Icon: SiGit, color: '#F05032' },
+  { name: 'GitHub', level: 88, category: 'Tooling', Icon: SiGithub, color: 'currentColor' },
+  { name: 'PostgreSQL', level: 75, category: 'Database', Icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Google Sheets', level: 90, category: 'Data', Icon: SiGooglesheets, color: '#34A853' },
+  { name: 'Framer Motion', level: 82, category: 'Animation', Icon: SiFramer, color: 'currentColor' },
+  { name: 'Vercel', level: 85, category: 'Deployment', Icon: SiVercel, color: 'currentColor' },
 ];
-
-const CATEGORY_ICON: Record<string, typeof Code2> = {
-  Data: Database,
-  Frontend: Code2,
-  Framework: Layers,
-  Language: Braces,
-  Styling: Palette,
-};
 
 const EXPERIENCES = [
   {
@@ -208,7 +210,7 @@ export default function About() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {SKILLS.map((skill, index) => {
-              const Icon = CATEGORY_ICON[skill.category] ?? Code2;
+              const Icon = skill.Icon;
               const radius = 38;
               const circumference = 2 * Math.PI * radius;
               return (
@@ -250,7 +252,7 @@ export default function About() {
                       </defs>
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <Icon className="text-primary mb-0.5" size={16} />
+                      <Icon size={18} style={{ color: skill.color }} className="mb-0.5" />
                       <span className="text-sm font-bold text-foreground">{skill.level}%</span>
                     </div>
                   </div>
