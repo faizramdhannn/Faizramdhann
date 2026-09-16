@@ -53,7 +53,7 @@ const EXPERIENCES = [
 const EDUCATION = [
   { school: 'hackkarier.work', program: 'Fullstack Developer Bootcamp', period: 'Oct 2025 - Dec 2025' },
   { school: 'UIN Bandung', program: 'Bachelor of Islamic Guidance and Counseling', period: 'Oct 2020 - Nov 2024' },
-  { school: 'UNINUS Bandung', program: 'Master in Educational Administration', period: 'Jan 2025 - Present' },
+  { school: 'UNINUS Bandung', program: 'Master in Educational Administration', period: 'Jan 2025 - Aug 2026' },
 ];
 
 export default function About() {
@@ -187,7 +187,7 @@ export default function About() {
                 <div className="flex-1 flex flex-wrap items-baseline justify-between gap-x-3">
                   <div>
                     <span className="font-semibold text-foreground">{edu.school}</span>
-                    <span className="text-foreground/55 text-sm"> &mdash; {edu.program}</span>
+                    <span className="text-foreground/55 text-sm"> - {edu.program}</span>
                   </div>
                   <span className="text-sm text-primary/80 font-medium shrink-0">{edu.period}</span>
                 </div>
@@ -206,44 +206,61 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="liquid-glass rounded-3xl p-6 md:p-7">
-            <div className="grid gap-5">
-              {SKILLS.map((skill, index) => {
-                const Icon = CATEGORY_ICON[skill.category] ?? Code2;
-                return (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.35, delay: index * 0.04 }}
-                  >
-                    <div className="flex items-center justify-between mb-2.5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                          <Icon className="text-primary" size={15} />
-                        </div>
-                        <span className="text-base font-bold text-foreground">{skill.name}</span>
-                        <span className="text-xs text-foreground/40 font-medium px-2 py-1 rounded-full bg-foreground/5">
-                          {skill.category}
-                        </span>
-                      </div>
-                      <span className="text-sm font-semibold text-primary">{skill.level}%</span>
-                    </div>
-
-                    <div className="h-1.5 bg-foreground/5 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: index * 0.04, ease: 'easeOut' }}
-                        className="h-full bg-primary rounded-full"
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {SKILLS.map((skill, index) => {
+              const Icon = CATEGORY_ICON[skill.category] ?? Code2;
+              const radius = 38;
+              const circumference = 2 * Math.PI * radius;
+              return (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
+                  whileHover={{ y: -3 }}
+                  className="liquid-glass rounded-3xl p-5 flex flex-col items-center gap-3 text-center"
+                >
+                  <div className="relative w-24 h-24">
+                    <svg viewBox="0 0 96 96" className="w-24 h-24 -rotate-90">
+                      <circle
+                        cx="48" cy="48" r={radius}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="7"
+                        className="text-foreground/8"
                       />
+                      <motion.circle
+                        cx="48" cy="48" r={radius}
+                        fill="none"
+                        stroke="url(#skillRingGradient)"
+                        strokeWidth="7"
+                        strokeLinecap="round"
+                        strokeDasharray={circumference}
+                        initial={{ strokeDashoffset: circumference }}
+                        whileInView={{ strokeDashoffset: circumference * (1 - skill.level / 100) }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.1, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                      <defs>
+                        <linearGradient id="skillRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="var(--primary)" />
+                          <stop offset="100%" stopColor="var(--primary-light)" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <Icon className="text-primary mb-0.5" size={16} />
+                      <span className="text-sm font-bold text-foreground">{skill.level}%</span>
                     </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                  </div>
+                  <span className="text-sm font-bold text-foreground">{skill.name}</span>
+                  <span className="text-[11px] text-foreground/40 font-medium px-2 py-0.5 rounded-full bg-foreground/5">
+                    {skill.category}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

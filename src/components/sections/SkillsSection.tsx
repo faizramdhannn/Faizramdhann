@@ -35,11 +35,12 @@ const SKILLS: Skill[] = [
 function SkillTile({ name, Icon, color }: Skill) {
   return (
     <div
-      className="shrink-0 w-36 sm:w-40 liquid-glass rounded-2xl px-4 py-5 flex flex-col items-center
-               gap-2.5 text-foreground/80 hover:scale-105 hover:text-foreground transition-transform"
+      title={name}
+      className="shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center
+               bg-foreground/[0.04] border border-foreground/10
+               text-foreground/80 hover:scale-105 hover:text-foreground hover:bg-foreground/[0.07] transition-[transform,background-color]"
     >
-      <Icon size={30} style={{ color }} />
-      <span className="text-xs sm:text-sm font-semibold text-center">{name}</span>
+      <Icon size={32} style={{ color }} />
     </div>
   );
 }
@@ -58,7 +59,6 @@ function SkillMarquee({ skills }: { skills: Skill[] }) {
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let raf = 0;
     const loop = () => {

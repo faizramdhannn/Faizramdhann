@@ -32,7 +32,7 @@ export default function ServicesSection() {
             Services &amp; <span className="text-primary">Solutions</span>
           </h2>
           <p className="text-foreground/55 mt-3 max-w-xl mx-auto text-sm md:text-base">
-            Beyond portfolio sites — I build practical tools businesses actually use.
+            More than portfolio sites: I build practical tools businesses actually use.
           </p>
         </motion.div>
 

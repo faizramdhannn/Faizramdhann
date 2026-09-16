@@ -50,12 +50,12 @@ export default function HeroSection({ content }: { content: Content }) {
 
               <AnimatePresence mode="wait">
                 {theme === 'light' ? (
-                  <div key="standing" className="absolute left-8 sm:left-10 bottom-0 w-[160px] sm:w-[180px] -rotate-2 drop-shadow-2xl">
+                  <div key="standing" className="absolute left-4 sm:left-6 bottom-0 w-[195px] sm:w-[220px] -rotate-2 drop-shadow-2xl">
                     <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
+                      initial={{ opacity: 0, x: -90 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -90 }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <Image
                         src="/assets/hero-standing.png"
@@ -68,12 +68,12 @@ export default function HeroSection({ content }: { content: Content }) {
                     </motion.div>
                   </div>
                 ) : (
-                  <div key="sitting" className="absolute top-[-40px] sm:top-[-48px] left-1/2 -translate-x-1/2 w-[190px] sm:w-[215px] drop-shadow-2xl">
+                  <div key="sitting" className="absolute top-[-68px] sm:top-[-78px] left-1/2 -translate-x-1/2 w-[190px] sm:w-[215px] drop-shadow-2xl">
                     <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
+                      initial={{ opacity: 0, y: -110 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -110 }}
+                      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <Image
                         src="/assets/hero-sitting.png"
