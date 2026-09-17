@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Project } from '@/types/project';
 import { motion } from 'framer-motion';
 import {
@@ -82,28 +83,17 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           )}
         </div>
 
-        {project.link && (
-          <div className="pt-3 border-t border-foreground/5 flex items-center justify-between text-primary">
-            <span className="text-sm font-semibold">View Project</span>
-            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-          </div>
-        )}
+        <div className="pt-3 border-t border-foreground/5 flex items-center justify-between text-primary">
+          <span className="text-sm font-semibold">View Details</span>
+          <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+        </div>
       </div>
     </motion.div>
   );
 
-  return project.link ? (
-    <a
-      href={project.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block h-full"
-    >
+  return (
+    <Link href={`/project/${project.id}`} className="block h-full">
       {CardContent}
-    </a>
-  ) : (
-    <div className="h-full">
-      {CardContent}
-    </div>
+    </Link>
   );
 }

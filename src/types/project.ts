@@ -7,4 +7,5 @@ export interface Project {
   image: string;
   link?: string;
   status?: string;
+  features?: string[];
 }

@@ -11,20 +11,20 @@ import {
 
 // Same stack shown on the home page's Technical Skills marquee.
 const SKILLS = [
-  { name: 'HTML5', level: 95, category: 'Frontend', Icon: SiHtml5, color: '#E34F26' },
-  { name: 'CSS3', level: 92, category: 'Frontend', Icon: SiCss, color: '#1572B6' },
-  { name: 'JavaScript', level: 88, category: 'Frontend', Icon: SiJavascript, color: '#F7DF1E' },
-  { name: 'TypeScript', level: 83, category: 'Language', Icon: SiTypescript, color: '#3178C6' },
-  { name: 'React', level: 87, category: 'Framework', Icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', level: 85, category: 'Framework', Icon: SiNextdotjs, color: 'currentColor' },
-  { name: 'Tailwind CSS', level: 93, category: 'Styling', Icon: SiTailwindcss, color: '#38BDF8' },
-  { name: 'Node.js', level: 78, category: 'Runtime', Icon: SiNodedotjs, color: '#339933' },
-  { name: 'Git', level: 86, category: 'Tooling', Icon: SiGit, color: '#F05032' },
-  { name: 'GitHub', level: 88, category: 'Tooling', Icon: SiGithub, color: 'currentColor' },
-  { name: 'PostgreSQL', level: 75, category: 'Database', Icon: SiPostgresql, color: '#4169E1' },
-  { name: 'Google Sheets', level: 90, category: 'Data', Icon: SiGooglesheets, color: '#34A853' },
-  { name: 'Framer Motion', level: 82, category: 'Animation', Icon: SiFramer, color: 'currentColor' },
-  { name: 'Vercel', level: 85, category: 'Deployment', Icon: SiVercel, color: 'currentColor' },
+  { name: 'HTML5', what: 'Semantic, accessible markup for fast, well-structured pages.', Icon: SiHtml5, color: '#E34F26' },
+  { name: 'CSS3', what: 'Responsive layouts and styling with Flexbox and Grid.', Icon: SiCss, color: '#1572B6' },
+  { name: 'JavaScript', what: 'Interactive UI logic and client-side data handling.', Icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'TypeScript', what: 'Type-safe code that catches bugs before they ship.', Icon: SiTypescript, color: '#3178C6' },
+  { name: 'React', what: 'Component-based interfaces with hooks and clean state management.', Icon: SiReact, color: '#61DAFB' },
+  { name: 'Next.js', what: 'Full-stack React apps with routing, API routes, and SSR.', Icon: SiNextdotjs, color: 'currentColor' },
+  { name: 'Tailwind CSS', what: 'Fast, consistent UI styling with utility classes.', Icon: SiTailwindcss, color: '#38BDF8' },
+  { name: 'Node.js', what: 'Server-side logic and REST API endpoints.', Icon: SiNodedotjs, color: '#339933' },
+  { name: 'Git', what: 'Version control, branching, and safe collaborative workflows.', Icon: SiGit, color: '#F05032' },
+  { name: 'GitHub', what: 'Code hosting, pull requests, and CI/CD pipelines.', Icon: SiGithub, color: 'currentColor' },
+  { name: 'PostgreSQL', what: 'Relational database design and SQL queries.', Icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Google Sheets', what: 'Spreadsheet-backed apps and Apps Script automation.', Icon: SiGooglesheets, color: '#34A853' },
+  { name: 'Framer Motion', what: 'Smooth, physics-based animations for modern UI.', Icon: SiFramer, color: 'currentColor' },
+  { name: 'Vercel', what: 'Deploying and hosting production web apps.', Icon: SiVercel, color: 'currentColor' },
 ];
 
 const EXPERIENCES = [
@@ -208,58 +208,26 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="space-y-3">
             {SKILLS.map((skill, index) => {
               const Icon = skill.Icon;
-              const radius = 38;
-              const circumference = 2 * Math.PI * radius;
               return (
                 <motion.div
                   key={skill.name}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.06 }}
-                  whileHover={{ y: -3 }}
-                  className="liquid-glass rounded-3xl p-5 flex flex-col items-center gap-3 text-center"
+                  transition={{ duration: 0.35, delay: index * 0.04 }}
+                  whileHover={{ x: 3 }}
+                  className="liquid-glass rounded-2xl p-4 md:p-5 flex items-center gap-4"
                 >
-                  <div className="relative w-24 h-24">
-                    <svg viewBox="0 0 96 96" className="w-24 h-24 -rotate-90">
-                      <circle
-                        cx="48" cy="48" r={radius}
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="7"
-                        className="text-foreground/8"
-                      />
-                      <motion.circle
-                        cx="48" cy="48" r={radius}
-                        fill="none"
-                        stroke="url(#skillRingGradient)"
-                        strokeWidth="7"
-                        strokeLinecap="round"
-                        strokeDasharray={circumference}
-                        initial={{ strokeDashoffset: circumference }}
-                        whileInView={{ strokeDashoffset: circumference * (1 - skill.level / 100) }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.1, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                      <defs>
-                        <linearGradient id="skillRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="var(--primary)" />
-                          <stop offset="100%" stopColor="var(--primary-light)" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <Icon size={18} style={{ color: skill.color }} className="mb-0.5" />
-                      <span className="text-sm font-bold text-foreground">{skill.level}%</span>
-                    </div>
+                  <div className="w-11 h-11 rounded-xl bg-foreground/5 flex items-center justify-center shrink-0">
+                    <Icon size={22} style={{ color: skill.color }} />
                   </div>
-                  <span className="text-sm font-bold text-foreground">{skill.name}</span>
-                  <span className="text-[11px] text-foreground/40 font-medium px-2 py-0.5 rounded-full bg-foreground/5">
-                    {skill.category}
-                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-base font-bold text-foreground">{skill.name}</h3>
+                    <p className="text-sm text-foreground/55">{skill.what}</p>
+                  </div>
                 </motion.div>
               );
             })}
