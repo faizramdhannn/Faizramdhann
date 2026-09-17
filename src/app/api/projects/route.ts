@@ -13,6 +13,7 @@ interface CacheData {
     link: string;
     status: string;
     features: string[];
+    detailImage: string;
   }> | null;
   timestamp: number;
 }
@@ -42,7 +43,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const rows = await readSheetData(spreadsheetId, 'Projects!B2:I');
+    const rows = await readSheetData(spreadsheetId, 'Projects!B2:J');
 
     const projects = rows.map((row, index) => ({
       id: index + 1,
@@ -54,6 +55,7 @@ export async function GET() {
       link: row[5] || '',
       status: row[6] || 'active',
       features: row[7] ? row[7].split('|').map((f: string) => f.trim()).filter(Boolean) : [],
+      detailImage: row[8] || '',
     })).filter(p => p.status === 'active').reverse(); // newest (last added) first
 
     // Update cache

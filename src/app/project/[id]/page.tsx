@@ -86,7 +86,8 @@ export default function ProjectDetail() {
     : project.technologies.split(',').map((t) => t.trim()).filter(Boolean);
 
   const features = project.features ?? [];
-  const hasImage = Boolean(project.image) && project.image !== LEGACY_PLACEHOLDER;
+  const displayImage = project.detailImage || project.image;
+  const hasImage = Boolean(displayImage) && displayImage !== LEGACY_PLACEHOLDER;
   const CategoryIcon = CATEGORY_ICON[project.category] ?? Code2;
 
   return (
@@ -106,7 +107,7 @@ export default function ProjectDetail() {
         >
           <div className="relative w-full h-64 md:h-80">
             {hasImage ? (
-              <Image src={project.image} alt={project.name} fill className="object-cover object-top" priority />
+              <Image src={displayImage} alt={project.name} fill className="object-cover object-top" priority />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent flex items-center justify-center">
                 <CategoryIcon className="text-primary/40" size={64} />

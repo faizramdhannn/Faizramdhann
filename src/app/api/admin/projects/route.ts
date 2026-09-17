@@ -8,7 +8,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const rows = await readSheetData(spreadsheetId, 'Projects!B2:I');
+    const rows = await readSheetData(spreadsheetId, 'Projects!B2:J');
 
     const projects = rows.map((row, index) => ({
       id: index + 2,
@@ -20,6 +20,7 @@ export async function GET() {
       link: row[5] || '',
       status: row[6] || 'active',
       features: row[7] || '',
+      detailImage: row[8] || '',
     }));
 
     return NextResponse.json(projects);
@@ -32,15 +33,15 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, category, description, technologies, image, link, features } = body;
+    const { name, category, description, technologies, image, link, features, detailImage } = body;
 
     const spreadsheetId = process.env.DATABASE_SPREADSHEET_ID;
     if (!spreadsheetId) {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const newRow = [[name, category, description, technologies, image, link, 'active', features || '']];
-    await appendSheetData(spreadsheetId, 'Projects!B:I', newRow);
+    const newRow = [[name, category, description, technologies, image, link, 'active', features || '', detailImage || '']];
+    await appendSheetData(spreadsheetId, 'Projects!B:J', newRow);
 
     return NextResponse.json({ success: true, message: 'Project added successfully' });
   } catch (error) {
@@ -52,15 +53,15 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, name, category, description, technologies, image, link, status, features } = body;
+    const { id, name, category, description, technologies, image, link, status, features, detailImage } = body;
 
     const spreadsheetId = process.env.DATABASE_SPREADSHEET_ID;
     if (!spreadsheetId) {
       return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
     }
 
-    const range = `Projects!B${id}:I${id}`;
-    const values = [[name, category, description, technologies, image, link, status, features || '']];
+    const range = `Projects!B${id}:J${id}`;
+    const values = [[name, category, description, technologies, image, link, status, features || '', detailImage || '']];
 
     await writeSheetData(spreadsheetId, range, values);
 
