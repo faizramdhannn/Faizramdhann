@@ -1,80 +1,14 @@
 import { NextResponse } from 'next/server';
-import { readSheetData } from '@/lib/googleSheets';
-
-// Cache projects for 5 minutes
-interface CacheData {
-  data: Array<{
-    id: number;
-    name: string;
-    category: string;
-    description: string;
-    technologies: string[];
-    image: string;
-    link: string;
-    status: string;
-    features: string[];
-    detailImage: string;
-  }> | null;
-  timestamp: number;
-}
-
-const cache: CacheData = {
-  data: null,
-  timestamp: 0,
-};
-
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+import { getPublicProjects } from '@/lib/projects';
 
 export async function GET() {
   try {
-    const now = Date.now();
-    
-    // Return cached data if still valid
-    if (cache.data && (now - cache.timestamp) < CACHE_DURATION) {
-      return NextResponse.json(cache.data, {
-        headers: {
-          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-        },
-      });
-    }
-
-    const spreadsheetId = process.env.DATABASE_SPREADSHEET_ID;
-    if (!spreadsheetId) {
-      return NextResponse.json({ error: 'Spreadsheet ID not configured' }, { status: 500 });
-    }
-
-    const rows = await readSheetData(spreadsheetId, 'Projects!B2:J');
-
-    const projects = rows.map((row, index) => ({
-      id: index + 1,
-      name: row[0] || '',
-      category: row[1] || '',
-      description: row[2] || '',
-      technologies: row[3] ? row[3].split(',').map((t: string) => t.trim()) : [],
-      image: row[4] || '',
-      link: row[5] || '',
-      status: row[6] || 'active',
-      features: row[7] ? row[7].split('|').map((f: string) => f.trim()).filter(Boolean) : [],
-      detailImage: row[8] || '',
-    })).filter(p => p.status === 'active').reverse(); // newest (last added) first
-
-    // Update cache
-    cache.data = projects;
-    cache.timestamp = now;
-
+    const projects = await getPublicProjects();
     return NextResponse.json(projects, {
-      headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-      },
+      headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     });
   } catch (error) {
     console.error('Error fetching projects:', error);
-    
-    // Return cached data if available, even if expired
-    if (cache.data) {
-      return NextResponse.json(cache.data);
-    }
-    
     return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
   }
 }

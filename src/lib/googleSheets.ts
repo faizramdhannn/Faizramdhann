@@ -62,3 +62,22 @@ export async function clearSheetData(spreadsheetId: string, range: string) {
     range,
   });
 }
+
+/**
+ * Append a row at the first free row of a column-A-anchored block by writing to an
+ * explicit range. `values.append` auto-detects a "table" and has shifted columns left,
+ * so we never use it for the Projects sheet.
+ */
+export async function appendRowExplicit(
+  spreadsheetId: string,
+  sheet: string,
+  firstCol: string,
+  lastCol: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  row: any[]
+) {
+  const existing = await readSheetData(spreadsheetId, `${sheet}!${firstCol}:${firstCol}`);
+  const nextRow = existing.length + 1;
+  await writeSheetData(spreadsheetId, `${sheet}!${firstCol}${nextRow}:${lastCol}${nextRow}`, [row]);
+  return nextRow;
+}

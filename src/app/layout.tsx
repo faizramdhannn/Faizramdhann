@@ -3,6 +3,8 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import ClientLayout from '@/components/ClientLayout';
 import PageTransition from '@/components/PageTransition';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const jetbrainsMono = JetBrains_Mono({
@@ -13,10 +15,19 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Faiz Ramdhan - Portfolio',
-  description: 'Personal portfolio website showcasing projects and skills',
-  keywords: ['portfolio', 'web development', 'faiz ramdhan', 'developer'],
+  metadataBase: new URL('https://faizramdhann.vercel.app'),
+  title: { default: 'Faiz Ramdhan - Web Developer', template: '%s | Faiz Ramdhan' },
+  description: 'Portfolio of Faiz Ramdhan Azmalia, a web developer building practical business tools, dashboards and web apps.',
+  keywords: ['portfolio', 'web development', 'faiz ramdhan', 'developer', 'next.js'],
   authors: [{ name: 'Faiz Ramdhan Azmalia' }],
+  openGraph: {
+    type: 'website',
+    siteName: 'Faiz Ramdhan',
+    title: 'Faiz Ramdhan - Web Developer',
+    description: 'Practical business tools, dashboards and web apps.',
+    images: ['/assets/hero-standing.png'],
+  },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function RootLayout({
@@ -30,6 +41,8 @@ export default function RootLayout({
         <ClientLayout>
           <PageTransition>{children}</PageTransition>
         </ClientLayout>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
