@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import ClientLayout from '@/components/ClientLayout';
 import PageTransition from '@/components/PageTransition';
+import { ViewTransitions } from 'next-view-transitions';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -25,7 +26,6 @@ export const metadata: Metadata = {
     siteName: 'Faiz Ramdhan',
     title: 'Faiz Ramdhan - Web Developer',
     description: 'Practical business tools, dashboards and web apps.',
-    images: ['/assets/hero-standing.png'],
   },
   twitter: { card: 'summary_large_image' },
 };
@@ -36,6 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ViewTransitions>
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen flex flex-col overflow-x-hidden font-sans">
         <ClientLayout>
@@ -45,5 +46,6 @@ export default function RootLayout({
         <SpeedInsights />
       </body>
     </html>
+    </ViewTransitions>
   );
 }

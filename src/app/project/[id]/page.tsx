@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
+import { Link } from 'next-view-transitions';
+import ProjectGallery from '@/components/ProjectGallery';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft, ArrowUpRight, CheckCircle2, Globe, LayoutDashboard, BarChart3, Boxes,
@@ -95,8 +95,12 @@ export default function ProjectDetail() {
     : project.technologies.split(',').map((t) => t.trim()).filter(Boolean);
 
   const features = project.features ?? [];
-  const displayImage = project.detailImage || project.image;
-  const hasImage = Boolean(displayImage) && displayImage !== LEGACY_PLACEHOLDER;
+  // detailImage may hold several screenshots separated by "|"; the first is the hero.
+  const images = (project.detailImage || project.image)
+    .split('|')
+    .map((u) => u.trim())
+    .filter((u) => u && u !== LEGACY_PLACEHOLDER);
+  const hasImage = images.length > 0;
   const CategoryIcon = CATEGORY_ICON[project.category] ?? Code2;
 
   return (
@@ -114,15 +118,15 @@ export default function ProjectDetail() {
           transition={{ duration: 0.45, delay: 0.05 }}
           className="liquid-glass rounded-3xl overflow-hidden"
         >
-          <div className="relative w-full h-64 md:h-80">
-            {hasImage ? (
-              <Image src={displayImage} alt={project.name} fill className="object-cover object-top" priority />
-            ) : (
+          {hasImage ? (
+            <ProjectGallery images={images} alt={project.name} transitionName={`project-${project.id}`} />
+          ) : (
+            <div className="relative w-full h-64 md:h-80" style={{ viewTransitionName: `project-${project.id}` }}>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent flex items-center justify-center">
                 <CategoryIcon className="text-primary/40" size={64} />
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="p-6 md:p-8 space-y-6">
             <div className="flex flex-wrap items-start justify-between gap-4">

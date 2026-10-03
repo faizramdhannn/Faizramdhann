@@ -130,7 +130,7 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="relative space-y-4 pl-6 md:pl-8 before:absolute before:left-[7px] md:before:left-[9px] before:top-3 before:bottom-3 before:w-px before:bg-primary/25">
             {EXPERIENCES.map((exp, index) => (
               <motion.div
                 key={exp.title}
@@ -138,8 +138,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: index * 0.05 }}
-                className="liquid-glass rounded-3xl p-6 md:p-7"
+                className="relative liquid-glass rounded-3xl p-6 md:p-7"
               >
+                <span aria-hidden className="absolute -left-6 md:-left-8 top-8 w-[15px] md:w-[19px] h-[15px] md:h-[19px] rounded-full bg-surface border-[3px] border-primary" />
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                     <exp.icon className="text-primary" size={21} />

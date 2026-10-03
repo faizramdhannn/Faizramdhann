@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import type { Project } from '@/types/project';
 import { motion } from 'framer-motion';
 import {
@@ -40,9 +40,20 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: index * 0.06 }}
       whileHover={{ y: -6 }}
-      className="group liquid-glass rounded-3xl overflow-hidden h-full flex flex-col"
+      onPointerMove={(e) => {
+        if (e.pointerType !== 'mouse') return;
+        const r = e.currentTarget.getBoundingClientRect();
+        e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+      }}
+      className="group relative liquid-glass rounded-3xl overflow-hidden h-full flex flex-col"
     >
-      <div className="relative w-full h-52 overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: 'radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(0,166,126,0.14), transparent 70%)' }}
+      />
+      <div className="relative w-full h-52 overflow-hidden" style={{ viewTransitionName: `project-${project.id}` }}>
         {hasImage ? (
           <Image
             src={project.image}

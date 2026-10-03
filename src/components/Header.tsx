@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useTheme } from './ThemeProvider';
 import { motion } from 'framer-motion';
-import { Moon, Sun, Home, User, FolderKanban } from 'lucide-react';
+import { Moon, Sun, Home, User, FolderKanban, Search } from 'lucide-react';
 import { useHoldSlide } from '@/lib/useHoldSlide';
 
 const NAV_ITEMS = [
@@ -74,6 +74,15 @@ export default function Header() {
               </Link>
             ))}
           </nav>
+
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-command-palette'))}
+            aria-label="Search (Cmd+K)"
+            title="Search (Ctrl/Cmd + K)"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-primary hover:bg-primary/10 transition-colors"
+          >
+            <Search size={17} />
+          </button>
 
           <motion.button
             whileTap={{ scale: 0.9 }}

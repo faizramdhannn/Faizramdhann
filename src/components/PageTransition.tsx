@@ -37,6 +37,12 @@ export default function PageTransition({
 }) {
   const pathname = usePathname();
 
+  // Project list/detail use native view transitions (shared-element morph),
+  // so skip the opacity animation that would hide the morph target.
+  if (pathname.startsWith('/project')) {
+    return <div className="flex-1 pt-24">{children}</div>;
+  }
+
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div

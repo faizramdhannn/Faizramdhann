@@ -98,7 +98,7 @@ export default function ProjectForm({ initial, submitLabel, onSubmit, onCancel }
           />
         </Field>
         <Field label="Card image" hint="Path in /public, https URL, or upload"><input className={inputClass} value={draft.image} onChange={set('image')} placeholder="/assets/projects/name.jpg" /><UploadButton onUploaded={(url) => setDraft((d) => ({ ...d, image: url }))} /></Field>
-        <Field label="Detail image" hint="Optional, falls back to card image"><input className={inputClass} value={draft.detailImage} onChange={set('detailImage')} /><UploadButton onUploaded={(url) => setDraft((d) => ({ ...d, detailImage: url }))} /></Field>
+        <Field label="Detail images" hint="Optional. Several screenshots: separate with | (each upload appends)"><input className={inputClass} value={draft.detailImage} onChange={set('detailImage')} /><UploadButton onUploaded={(url) => setDraft((d) => ({ ...d, detailImage: d.detailImage ? `${d.detailImage}|${url}` : url }))} /></Field>
         <Field label="Live link"><input type="url" className={inputClass} value={draft.link} onChange={set('link')} placeholder="https://" /></Field>
         <Field label="Status">
           <select className={inputClass} value={draft.status} onChange={set('status')}>
