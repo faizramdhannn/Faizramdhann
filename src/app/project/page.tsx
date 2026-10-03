@@ -73,12 +73,22 @@ function ProjectsView() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-14 h-14 border-4 border-primary/20 border-t-primary rounded-full"
-        />
+      <div className="px-6 md:px-8 py-14 md:py-16" aria-busy="true">
+        <div className="max-w-7xl mx-auto space-y-10">
+          <div className="h-12 w-64 mx-auto rounded-2xl bg-foreground/5 animate-pulse" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="liquid-glass rounded-3xl overflow-hidden">
+                <div className="h-48 bg-foreground/5 animate-pulse" />
+                <div className="p-6 space-y-3">
+                  <div className="h-5 w-2/3 rounded bg-foreground/5 animate-pulse" />
+                  <div className="h-4 w-full rounded bg-foreground/5 animate-pulse" />
+                  <div className="h-4 w-4/5 rounded bg-foreground/5 animate-pulse" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

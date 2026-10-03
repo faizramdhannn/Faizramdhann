@@ -29,6 +29,7 @@ export default function ProjectDetail() {
   const id = Number(params.id);
 
   const [project, setProject] = useState<Project | null>(null);
+  const [neighbours, setNeighbours] = useState<{ prev?: Project; next?: Project }>({});
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
@@ -38,7 +39,9 @@ export default function ProjectDetail() {
         const response = await fetch('/api/projects');
         if (response.ok) {
           const data: Project[] = await response.json();
-          const match = data.find((p) => p.id === id);
+          const idx = data.findIndex((p) => p.id === id);
+          const match = data[idx];
+          setNeighbours({ prev: data[idx - 1], next: data[idx + 1] });
           if (match) {
             setProject(match);
           } else {
@@ -59,12 +62,18 @@ export default function ProjectDetail() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-14 h-14 border-4 border-primary/20 border-t-primary rounded-full"
-        />
+      <div className="px-6 md:px-8 py-14 md:py-16" aria-busy="true">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="h-4 w-32 rounded bg-foreground/5 animate-pulse" />
+          <div className="liquid-glass rounded-3xl overflow-hidden">
+            <div className="h-64 md:h-80 bg-foreground/5 animate-pulse" />
+            <div className="p-8 space-y-4">
+              <div className="h-8 w-1/2 rounded bg-foreground/5 animate-pulse" />
+              <div className="h-4 w-full rounded bg-foreground/5 animate-pulse" />
+              <div className="h-4 w-3/4 rounded bg-foreground/5 animate-pulse" />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -172,6 +181,23 @@ export default function ProjectDetail() {
             )}
           </div>
         </motion.div>
+
+        {(neighbours.prev || neighbours.next) && (
+          <nav aria-label="More projects" className="grid sm:grid-cols-2 gap-4">
+            {neighbours.prev ? (
+              <Link href={`/project/${neighbours.prev.id}`} className="liquid-glass rounded-2xl p-4 flex items-center gap-3 hover:text-primary transition-colors">
+                <ArrowLeft size={18} className="shrink-0" />
+                <span className="min-w-0"><span className="block text-xs text-foreground/45">Newer</span><span className="block font-semibold truncate">{neighbours.prev.name}</span></span>
+              </Link>
+            ) : <span />}
+            {neighbours.next && (
+              <Link href={`/project/${neighbours.next.id}`} className="liquid-glass rounded-2xl p-4 flex items-center justify-end gap-3 text-right hover:text-primary transition-colors">
+                <span className="min-w-0"><span className="block text-xs text-foreground/45">Older</span><span className="block font-semibold truncate">{neighbours.next.name}</span></span>
+                <ArrowUpRight size={18} className="shrink-0 rotate-90" />
+              </Link>
+            )}
+          </nav>
+        )}
       </div>
     </div>
   );

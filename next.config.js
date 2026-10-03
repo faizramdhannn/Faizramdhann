@@ -11,6 +11,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'imgur.com' },
       { protocol: 'https', hostname: 'res.cloudinary.com' },
       { protocol: 'https', hostname: 'i.ibb.co' },
+      { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
     ],
   },
 

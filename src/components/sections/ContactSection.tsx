@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, InstagramIcon, EmailIcon } from '@/components/icons';
 import type { Content } from '@/lib/content';
+import ContactForm from '@/components/ContactForm';
 
 const SOCIAL_LINKS = [
   { href: 'https://github.com/faizramdhannn', Icon: GithubIcon, alt: 'GitHub' },
@@ -27,8 +28,10 @@ export default function ContactSection({ content }: { content: Content }) {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             Get In <span className="text-primary">Touch</span>
           </h2>
-          <p className="text-base text-foreground/55 max-w-xl mx-auto mb-10">{content.contactDescription}</p>
+          <p className="text-base text-foreground/55 max-w-xl mx-auto mb-8">{content.contactDescription}</p>
         </motion.div>
+
+        <div className="mb-10"><ContactForm /></div>
 
         <div className="flex items-center justify-center gap-3">
           {SOCIAL_LINKS.map((social, index) => (

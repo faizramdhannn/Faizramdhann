@@ -81,3 +81,16 @@ export async function appendRowExplicit(
   await writeSheetData(spreadsheetId, `${sheet}!${firstCol}${nextRow}:${lastCol}${nextRow}`, [row]);
   return nextRow;
 }
+
+
+/** Make sure a tab exists (creates it with a header row if missing). */
+export async function ensureSheetTab(spreadsheetId: string, title: string, header: string[]) {
+  const sheets = await getGoogleSheetsClient();
+  const meta = await sheets.spreadsheets.get({ spreadsheetId, fields: 'sheets.properties.title' });
+  if (meta.data.sheets?.some((s) => s.properties?.title === title)) return;
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: { requests: [{ addSheet: { properties: { title } } }] },
+  });
+  await writeSheetData(spreadsheetId, `${title}!A1`, [header]);
+}

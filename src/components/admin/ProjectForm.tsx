@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
+import { Upload } from 'lucide-react';
 import type { AdminProject } from '@/lib/projects';
 
 export type ProjectDraft = Omit<AdminProject, 'id'>;
@@ -19,6 +21,35 @@ function Field({ label, hint, children, wide }: { label: string; hint?: string; 
       <span className="text-xs font-semibold text-foreground/70">{label}</span>
       {children}
       {hint && <span className="block text-xs text-foreground/40">{hint}</span>}
+    </label>
+  );
+}
+
+function UploadButton({ onUploaded }: { onUploaded: (url: string) => void }) {
+  const [busy, setBusy] = useState(false);
+  async function handle(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    setBusy(true);
+    try {
+      const body = new FormData();
+      body.append('file', file);
+      const res = await fetch('/api/admin/upload', { method: 'POST', body });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error ?? 'Upload failed');
+      onUploaded(data.url);
+      toast.success('Image uploaded');
+    } catch (err) {
+      toast.error((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <label className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary cursor-pointer">
+      <Upload size={13} /> {busy ? 'Uploading...' : 'Upload'}
+      <input type="file" accept="image/*" className="hidden" disabled={busy} onChange={handle} />
     </label>
   );
 }
@@ -66,8 +97,8 @@ export default function ProjectForm({ initial, submitLabel, onSubmit, onCancel }
             }
           />
         </Field>
-        <Field label="Card image" hint="Path in /public or https URL"><input className={inputClass} value={draft.image} onChange={set('image')} placeholder="/assets/projects/name.jpg" /></Field>
-        <Field label="Detail image" hint="Optional, falls back to card image"><input className={inputClass} value={draft.detailImage} onChange={set('detailImage')} /></Field>
+        <Field label="Card image" hint="Path in /public, https URL, or upload"><input className={inputClass} value={draft.image} onChange={set('image')} placeholder="/assets/projects/name.jpg" /><UploadButton onUploaded={(url) => setDraft((d) => ({ ...d, image: url }))} /></Field>
+        <Field label="Detail image" hint="Optional, falls back to card image"><input className={inputClass} value={draft.detailImage} onChange={set('detailImage')} /><UploadButton onUploaded={(url) => setDraft((d) => ({ ...d, detailImage: url }))} /></Field>
         <Field label="Live link"><input type="url" className={inputClass} value={draft.link} onChange={set('link')} placeholder="https://" /></Field>
         <Field label="Status">
           <select className={inputClass} value={draft.status} onChange={set('status')}>
